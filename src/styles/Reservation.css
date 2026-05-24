@@ -1,0 +1,204 @@
+.reservation {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.res-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.res-bg-img {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80') center/cover no-repeat;
+}
+
+.res-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,3,3,0.97) 0%, rgba(10,3,3,0.9) 50%, rgba(10,3,3,0.97) 100%);
+}
+
+.res-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.res-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.9s ease;
+}
+.res-content.reveal { opacity: 1; transform: none; }
+
+.res-desc {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(240,236,228,0.65);
+  line-height: 1.8;
+}
+
+.res-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.res-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255,255,255,0.03);
+  border-left: 2px solid var(--gold);
+}
+
+.res-info-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+
+.res-info-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.res-info-item strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+
+/* Form */
+.res-form-wrap {
+  background: rgba(20,12,12,0.8);
+  border: 1px solid rgba(212,175,55,0.15);
+  padding: 40px;
+  backdrop-filter: blur(12px);
+}
+
+.form-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.5);
+}
+
+.form-field input,
+.form-field select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--cream);
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  /* -webkit-appearance: none; */
+  border-radius: 0;
+}
+
+.form-field input:focus,
+.form-field select:focus { border-color: var(--gold); }
+
+.form-field input::placeholder { color: rgba(240,236,228,0.25); }
+
+.form-field select option {
+  background: var(--dark-3);
+  color: var(--cream);
+}
+
+/* Success state */
+.res-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  gap: 16px;
+  animation: successReveal 0.5s ease;
+}
+
+@keyframes successReveal {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.success-icon {
+  width: 72px; height: 72px;
+  background: rgba(212,175,55,0.1);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+.res-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.res-success p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(240,236,228,0.6);
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .res-inner { gap: 50px; padding: 0 30px; }
+}
+
+@media (max-width: 768px) {
+  .reservation { padding: 80px 0; }
+  .res-inner { grid-template-columns: 1fr; gap: 48px; padding: 0 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .res-form-wrap { padding: 24px; }
+}
