@@ -1,4 +1,3 @@
-import React from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import '../styles/About.css';
 import { scrollToSection } from '../utils/scrollTo';
@@ -39,8 +38,8 @@ const About = () => {
 
           <div className="about-pillars">
             {[
-              { icon: '🌾', title: 'Farm Fresh',    desc: 'Ingredients sourced daily from local farms' },
-              { icon: '👨‍🍳', title: 'Expert Chefs',  desc: 'Culinary masters with decades of experience' },
+              { icon: '🌾', title: 'Farm Fresh', desc: 'Ingredients sourced daily from local farms' },
+              { icon: '👨‍🍳', title: 'Expert Chefs', desc: 'Culinary masters with decades of experience' },
               { icon: '🚫', title: 'No Compromise', desc: 'Pure vegetarian, no artificial additives' },
             ].map((p, i) => (
               <div key={i} className="about-pillar" style={{ transitionDelay: `${i * 0.15}s` }}>
@@ -54,7 +53,7 @@ const About = () => {
           </div>
 
           <div className="about-cta">
-            <button className="btn-primary"  onClick={() => scrollToSection('#menu')}>
+            <button className="btn-primary" onClick={() => scrollToSection('#menu')}>
               View Our Menu
             </button>
             <button className="btn-outline" onClick={() => scrollToSection('#contact')}>

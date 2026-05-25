@@ -1,5 +1,7 @@
 // Footer.jsx
 import '../styles/Footer.css';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const NAV_EXPLORE = [
   { label: 'Home', href: '/' },
@@ -98,10 +100,7 @@ export default function Footer() {
 
           {/* Logo only — no wordmark text */}
           <div className="footer-logo-wrap">
-            <img src="/logos/geetham_logo.png"
-              className="footer-logo-img"
-              alt="logo"
-            />
+            <Image src="/logos/geetham_logo.png" alt="Geetham Logo" width={150} height={50} />
           </div>
 
           <p className="footer-brand-desc">
@@ -138,8 +137,8 @@ export default function Footer() {
           © {new Date().getFullYear()} Geetham Restaurant. All rights reserved.
         </p>
         <ul className="footer-legal">
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Use</a></li>
+          <li><Link href="/privacy">Privacy Policy</Link></li>
+          <li><Link href="/terms">Terms of Use</Link></li>
         </ul>
         <div className="footer-cert">
           <span className="" aria-hidden="true" />

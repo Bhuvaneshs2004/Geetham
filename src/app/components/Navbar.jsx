@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
 import { scrollToSection } from '../utils/scrollTo';
+import Image from 'next/image';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -84,10 +85,13 @@ const Navbar = () => {
           onClick={(e) => handleNav(e, '#home')}
         >
           <div className="logo-icon">
-            <img
+            <Image
               src="/assets/Gethamlogo.png"
               alt="Geetham Logo"
               className="logo-image"
+              width={120}
+              height={40}
+              priority
             />
           </div>
         </a>

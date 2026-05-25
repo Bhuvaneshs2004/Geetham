@@ -1,5 +1,6 @@
 // LogoMarquee.jsx
 import '../styles/LogoMarquee.css';
+import Image from 'next/image';
 
 const BRANDS = [
   { id: 1, logo: '/logos/AL.png', alt: 'AL' },
@@ -17,7 +18,12 @@ const BRANDS = [
 function LogoCard({ brand }) {
   return (
     <div className="logo-card">
-      <img src={brand.logo} alt={brand.alt} />
+      <Image
+        src={brand.logo}
+        alt={brand.alt}
+        width={140}
+        height={70}
+      />
     </div>
   );
 }

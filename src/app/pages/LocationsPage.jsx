@@ -9,7 +9,6 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-import React from "react";
 import CompanyMap, { DEFAULT_BRANCHES } from "../components/CompanyMap";
 
 /* ─── Optional: define your own branches ─────────────────────────────────── */
