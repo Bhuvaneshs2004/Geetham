@@ -1,32 +1,29 @@
 // Footer.jsx
 import '../styles/Footer.css';
 
-// ── Your logo ───────────────────────────────────────────────────────
-import GeethamLogo from '../logos/geetham_logo.png';
-
 const NAV_EXPLORE = [
-  { label: 'Home',       href: '/' },
-  { label: 'About Us',   href: '/about' },
-  { label: 'Our Menu',   href: '/menu' },
-  { label: 'Gallery',    href: '/gallery' },
-  { label: 'Events',     href: '/events' },
-  { label: 'Catering',   href: '/catering' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Our Menu', href: '/menu' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Events', href: '/events' },
+  { label: 'Catering', href: '/catering' },
 ];
 
 const NAV_EXPERIENCE = [
-  { label: 'Dine In',          href: '/dine-in' },
-  { label: 'Takeaway',         href: '/takeaway' },
-  { label: 'Home Delivery',    href: '/delivery' },
+  { label: 'Dine In', href: '/dine-in' },
+  { label: 'Takeaway', href: '/takeaway' },
+  { label: 'Home Delivery', href: '/delivery' },
   { label: 'Corporate Orders', href: '/corporate' },
-  { label: 'Reservations',     href: '/reservations' },
+  { label: 'Reservations', href: '/reservations' },
   { label: 'Festive Specials', href: '/specials' },
 ];
 
 const CONTACT = [
-  { icon: '📍', label: 'Address',      text: 'Near Chennai International Airport,\nPallavaram, Chennai – 600 043' },
+  { icon: '📍', label: 'Address', text: 'Near Chennai International Airport,\nPallavaram, Chennai – 600 043' },
   { icon: '📞', label: 'Reservations', text: '+91 44 1234 5678' },
-  { icon: '🕐', label: 'Hours',        text: '6:00 AM – 11:00 PM\nAll days including holidays' },
-  { icon: '✉️', label: 'Email',        text: 'info@geetham.in' },
+  { icon: '🕐', label: 'Hours', text: '6:00 AM – 11:00 PM\nAll days including holidays' },
+  { icon: '✉️', label: 'Email', text: 'info@geetham.in' },
 ];
 
 /* ── Social icons as inline SVG ──────────────────────────────────── */
@@ -101,10 +98,9 @@ export default function Footer() {
 
           {/* Logo only — no wordmark text */}
           <div className="footer-logo-wrap">
-            <img
-              src={GeethamLogo}
-              alt="Geetham Restaurant"
+            <img src="/logos/geetham_logo.png"
               className="footer-logo-img"
+              alt="logo"
             />
           </div>
 
@@ -131,7 +127,7 @@ export default function Footer() {
 
         </div>
 
-        <NavColumn heading="Explore"    links={NAV_EXPLORE} />
+        <NavColumn heading="Explore" links={NAV_EXPLORE} />
         <NavColumn heading="Experience" links={NAV_EXPERIENCE} />
 
       </div>

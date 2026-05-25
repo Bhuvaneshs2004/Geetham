@@ -13,7 +13,7 @@
   overflow: hidden;
   --parallax: 0px;
   /* The wallpaper is the hero background */
-  background-image: url('../assets/bg-geetham.png');
+  background-image: url('/assets/bg-geetham.png');
   background-size: 500px;
   background-repeat: repeat;
   background-position: center;
@@ -29,7 +29,7 @@
 .hero-bg-image {
   position: absolute;
   inset: -60px;
-  background-image: url('../assets/bg-geetham.png');
+  background-image: url('/assets/bg-geetham.png');
   background-size: 500px;
   background-repeat: repeat;
   transform: translateY(var(--parallax));
@@ -40,12 +40,10 @@
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(255, 253, 248, 0.78) 0%,
-    rgba(255, 248, 238, 0.65) 50%,
-    rgba(255, 245, 230, 0.72) 100%
-  );
+  background: linear-gradient(160deg,
+      rgba(255, 253, 248, 0.78) 0%,
+      rgba(255, 248, 238, 0.65) 50%,
+      rgba(255, 245, 230, 0.72) 100%);
 }
 
 /* Subtle grain */
@@ -67,13 +65,15 @@
 }
 
 .hero-deco-tl {
-  top: 90px; left: 48px;
+  top: 90px;
+  left: 48px;
   border-top: 1px solid rgba(42, 28, 20, 0.15);
   border-left: 1px solid rgba(42, 28, 20, 0.15);
 }
 
 .hero-deco-br {
-  bottom: 110px; right: 48px;
+  bottom: 110px;
+  right: 48px;
   border-bottom: 1px solid rgba(42, 28, 20, 0.15);
   border-right: 1px solid rgba(42, 28, 20, 0.15);
 }
@@ -105,14 +105,17 @@
   background: rgba(255, 255, 255, 0.70);
   border: 1px solid rgba(92, 74, 61, 0.25);
   padding: 8px 22px;
-  border-radius: 9999px;            /* Pill */
+  border-radius: 9999px;
+  /* Pill */
   backdrop-filter: blur(8px);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.2s;
 }
 
-.eyebrow-leaf { font-size: 0.85rem; }
+.eyebrow-leaf {
+  font-size: 0.85rem;
+}
 
 /* ── Title ──────────────────────────────────────── */
 .hero-title {
@@ -127,7 +130,8 @@
 .hero-title-line-1 {
   font-size: clamp(1.6rem, 3.5vw, 2.6rem);
   font-weight: 600;
-  color: #2A1C14;                   /* Tamarind Brown */
+  color: #2A1C14;
+  /* Tamarind Brown */
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.9s ease 0.4s;
@@ -140,7 +144,8 @@
   font-size: clamp(3.2rem, 8.5vw, 7rem);
   font-weight: 900;
   font-style: italic;
-  color: #D14136;                   /* Kumkum Red */
+  color: #D14136;
+  /* Kumkum Red */
   line-height: 1;
   opacity: 0;
   transform: translateY(40px) scale(0.95);
@@ -152,7 +157,8 @@
   display: block;
   font-size: clamp(1.8rem, 4.5vw, 3.8rem);
   font-weight: 700;
-  color: #2A1C14;                   /* Tamarind Brown */
+  color: #2A1C14;
+  /* Tamarind Brown */
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.9s ease 0.8s;
@@ -163,7 +169,8 @@
   font-family: 'Cormorant Garamond', 'Georgia', serif;
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-weight: 300;
-  color: #5C4A3D;                   /* Roasted Cumin */
+  color: #5C4A3D;
+  /* Roasted Cumin */
   line-height: 1.75;
   letter-spacing: 0.04em;
   opacity: 0;
@@ -194,7 +201,8 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(92, 74, 61, 0.18);
-  border-radius: 20px;              /* Squircle feel */
+  border-radius: 20px;
+  /* Squircle feel */
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 1.3s;
@@ -211,14 +219,16 @@
   font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: #D14136;                   /* Kumkum Red */
+  color: #D14136;
+  /* Kumkum Red */
 }
 
 .stat-label {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
-  color: #5C4A3D;                   /* Roasted Cumin */
+  color: #5C4A3D;
+  /* Roasted Cumin */
   text-transform: uppercase;
 }
 
@@ -257,7 +267,9 @@
   transition: opacity 0.3s ease;
 }
 
-.hero-scroll-hint:hover { opacity: 1; }
+.hero-scroll-hint:hover {
+  opacity: 1;
+}
 
 .scroll-mouse {
   width: 22px;
@@ -278,8 +290,17 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(8px); opacity: 0.3; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 0.3;
+  }
 }
 
 .hero-scroll-hint span {
@@ -323,7 +344,9 @@
   letter-spacing: 0.08em;
 }
 
-.float-emoji { font-size: 1.5rem; }
+.float-emoji {
+  font-size: 1.5rem;
+}
 
 .hero-float-1 {
   bottom: 28%;
@@ -338,25 +361,46 @@
 }
 
 @keyframes floatCard {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-float { display: none; }
-  .hero-deco { display: none; }
+  .hero-float {
+    display: none;
+  }
+
+  .hero-deco {
+    display: none;
+  }
+
   .hero-stats {
     flex-direction: column;
     gap: 16px;
     padding: 18px 28px;
   }
-  .stat-divider { width: 60px; height: 1px; }
+
+  .stat-divider {
+    width: 60px;
+    height: 1px;
+  }
+
   .hero-cta {
     flex-direction: column;
     width: 100%;
     max-width: 300px;
   }
+
   .btn-primary,
-  .btn-outline { justify-content: center; }
+  .btn-outline {
+    justify-content: center;
+  }
 }

@@ -1,16 +1,17 @@
+'use client';
 import { useEffect, useRef, useState } from "react";
-import "../styles/FoodGallery.css";
+import "../styles/Foodgallery.css";
 
 const ITEMS = [
-  { id: 1,  img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=85", label: "Pancakes" },
-  { id: 2,  img: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85", label: "Blue Latte" },
-  { id: 3,  img: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=85", label: "Crispy Burger" },
-  { id: 4,  img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600&q=85", label: "Golden Latte" },
-  { id: 5,  img: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=600&q=85", label: "Açaí Bowl" },
-  { id: 6,  img: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=85", label: "French Toast" },
-  { id: 7,  img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=85", label: "Skewers" },
-  { id: 8,  img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=85", label: "Waffles" },
-  { id: 9,  img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=85", label: "Fruit Bowl" },
+  { id: 1, img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=85", label: "Pancakes" },
+  { id: 2, img: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85", label: "Blue Latte" },
+  { id: 3, img: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=85", label: "Crispy Burger" },
+  { id: 4, img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600&q=85", label: "Golden Latte" },
+  { id: 5, img: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=600&q=85", label: "Açaí Bowl" },
+  { id: 6, img: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=85", label: "French Toast" },
+  { id: 7, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=85", label: "Skewers" },
+  { id: 8, img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=85", label: "Waffles" },
+  { id: 9, img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=85", label: "Fruit Bowl" },
   { id: 10, img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=85", label: "Dessert" },
   { id: 11, img: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=85", label: "Burger" },
   { id: 12, img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&q=85", label: "Smoothie" },
@@ -97,8 +98,8 @@ export default function FoodGallery() {
               className="fg-cell"
               style={{ transform: `rotate(${rotation}deg)` }}
             >
-              <div className="fg-blob">
-                <img src={cell.img} alt={cell.label} className="fg-blob-img" />
+              <div className="fg-blob abstract-manga">
+                <img src={cell.img} alt={cell.label} className="fg-blob-img abstract-manga" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             </div>
           );

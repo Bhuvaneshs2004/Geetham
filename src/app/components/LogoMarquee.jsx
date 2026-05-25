@@ -1,28 +1,17 @@
 // LogoMarquee.jsx
 import '../styles/LogoMarquee.css';
 
-import logoAL         from '../logos/AL.png';
-import logoFORD       from '../logos/FORD.png';
-import logoIB         from '../logos/IB.png';
-import logoLamp       from '../logos/lamp.png';
-import logoMedall     from '../logos/medall.png';
-import logoPhoenix    from '../logos/phoenix.png';
-import logoSun        from '../logos/sun.png';
-import logoSutherland from '../logos/sutherland.png';
-import logoTCS        from '../logos/tcs.png';
-import logoTNPL       from '../logos/tnpl.png';
-
 const BRANDS = [
-  { id: 1,  logo: logoAL,         alt: 'AL' },
-  { id: 2,  logo: logoFORD,       alt: 'Ford' },
-  { id: 3,  logo: logoIB,         alt: 'IB' },
-  { id: 4,  logo: logoLamp,       alt: 'Lamp' },
-  { id: 5,  logo: logoMedall,     alt: 'Medall' },
-  { id: 6,  logo: logoPhoenix,    alt: 'Phoenix' },
-  { id: 7,  logo: logoSun,        alt: 'Sun' },
-  { id: 8,  logo: logoSutherland, alt: 'Sutherland' },
-  { id: 9,  logo: logoTCS,        alt: 'TCS' },
-  { id: 10, logo: logoTNPL,       alt: 'TNPL' },
+  { id: 1, logo: '/logos/AL.png', alt: 'AL' },
+  { id: 2, logo: '/logos/FORD.png', alt: 'Ford' },
+  { id: 3, logo: '/logos/IB.png', alt: 'IB' },
+  { id: 4, logo: '/logos/lamp.png', alt: 'Lamp' },
+  { id: 5, logo: '/logos/medall.png', alt: 'Medall' },
+  { id: 6, logo: '/logos/phoenix.png', alt: 'Phoenix' },
+  { id: 7, logo: '/logos/sun.png', alt: 'Sun' },
+  { id: 8, logo: '/logos/sutherland.png', alt: 'Sutherland' },
+  { id: 9, logo: '/logos/tcs.png', alt: 'TCS' },
+  { id: 10, logo: '/logos/tnpl.png', alt: 'TNPL' },
 ];
 
 function LogoCard({ brand }) {
