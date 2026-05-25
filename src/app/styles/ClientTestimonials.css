@@ -9,7 +9,7 @@
   padding: 120px 0;
   overflow: hidden;
   /* bg-geetham wallpaper resumes here */
-  background-image: url('../assets/bg-geetham.png');
+  background-image: url('/assets/bg-geetham.png');
   background-size: 500px;
   background-repeat: repeat;
   background-position: center;
@@ -43,14 +43,16 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  color: #2A1C14;                  /* Tamarind Brown */
+  color: #2A1C14;
+  /* Tamarind Brown */
   line-height: 1.2;
   margin: 0;
 }
 
 .test-title em {
   font-style: italic;
-  color: #D14136;                  /* Kumkum Red */
+  color: #D14136;
+  /* Kumkum Red */
 }
 
 /* ── Grid ─────────────────────────────────────── */
@@ -67,7 +69,8 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(92, 74, 61, 0.18);
-  border-radius: 20px;             /* Squircle */
+  border-radius: 20px;
+  /* Squircle */
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -116,7 +119,8 @@
 }
 
 .test-star {
-  color: #E8A355;                  /* Saffron Gold */
+  color: #E8A355;
+  /* Saffron Gold */
   font-size: 1rem;
 }
 
@@ -126,7 +130,8 @@
   font-size: 1rem;
   font-weight: 400;
   font-style: italic;
-  color: #2A1C14;                  /* Tamarind Brown */
+  color: #2A1C14;
+  /* Tamarind Brown */
   line-height: 1.75;
   flex: 1;
   margin: 0;
@@ -200,11 +205,21 @@
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 1100px) {
-  .test-grid { grid-template-columns: repeat(2, 1fr); }
+  .test-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 700px) {
-  .testimonials-section { padding: 80px 0; }
-  .test-inner { padding: 0 20px; }
-  .test-grid { grid-template-columns: 1fr; }
+  .testimonials-section {
+    padding: 80px 0;
+  }
+
+  .test-inner {
+    padding: 0 20px;
+  }
+
+  .test-grid {
+    grid-template-columns: 1fr;
+  }
 }

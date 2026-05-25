@@ -1,32 +1,31 @@
 // Footer.jsx
 import '../styles/Footer.css';
-
-// ── Your logo ───────────────────────────────────────────────────────
-import GeethamLogo from '../logos/geetham_logo.png';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const NAV_EXPLORE = [
-  { label: 'Home',       href: '/' },
-  { label: 'About Us',   href: '/about' },
-  { label: 'Our Menu',   href: '/menu' },
-  { label: 'Gallery',    href: '/gallery' },
-  { label: 'Events',     href: '/events' },
-  { label: 'Catering',   href: '/catering' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Our Menu', href: '/menu' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Events', href: '/events' },
+  { label: 'Catering', href: '/catering' },
 ];
 
 const NAV_EXPERIENCE = [
-  { label: 'Dine In',          href: '/dine-in' },
-  { label: 'Takeaway',         href: '/takeaway' },
-  { label: 'Home Delivery',    href: '/delivery' },
+  { label: 'Dine In', href: '/dine-in' },
+  { label: 'Takeaway', href: '/takeaway' },
+  { label: 'Home Delivery', href: '/delivery' },
   { label: 'Corporate Orders', href: '/corporate' },
-  { label: 'Reservations',     href: '/reservations' },
+  { label: 'Reservations', href: '/reservations' },
   { label: 'Festive Specials', href: '/specials' },
 ];
 
 const CONTACT = [
-  { icon: '📍', label: 'Address',      text: 'Near Chennai International Airport,\nPallavaram, Chennai – 600 043' },
+  { icon: '📍', label: 'Address', text: 'Near Chennai International Airport,\nPallavaram, Chennai – 600 043' },
   { icon: '📞', label: 'Reservations', text: '+91 44 1234 5678' },
-  { icon: '🕐', label: 'Hours',        text: '6:00 AM – 11:00 PM\nAll days including holidays' },
-  { icon: '✉️', label: 'Email',        text: 'info@geetham.in' },
+  { icon: '🕐', label: 'Hours', text: '6:00 AM – 11:00 PM\nAll days including holidays' },
+  { icon: '✉️', label: 'Email', text: 'info@geetham.in' },
 ];
 
 /* ── Social icons as inline SVG ──────────────────────────────────── */
@@ -101,11 +100,7 @@ export default function Footer() {
 
           {/* Logo only — no wordmark text */}
           <div className="footer-logo-wrap">
-            <img
-              src={GeethamLogo}
-              alt="Geetham Restaurant"
-              className="footer-logo-img"
-            />
+            <Image src="/logos/geetham_logo.png" alt="Geetham Logo" width={150} height={50} />
           </div>
 
           <p className="footer-brand-desc">
@@ -131,7 +126,7 @@ export default function Footer() {
 
         </div>
 
-        <NavColumn heading="Explore"    links={NAV_EXPLORE} />
+        <NavColumn heading="Explore" links={NAV_EXPLORE} />
         <NavColumn heading="Experience" links={NAV_EXPERIENCE} />
 
       </div>
@@ -142,8 +137,8 @@ export default function Footer() {
           © {new Date().getFullYear()} Geetham Restaurant. All rights reserved.
         </p>
         <ul className="footer-legal">
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Use</a></li>
+          <li><Link href="/privacy">Privacy Policy</Link></li>
+          <li><Link href="/terms">Terms of Use</Link></li>
         </ul>
         <div className="footer-cert">
           <span className="" aria-hidden="true" />

@@ -9,7 +9,7 @@
   position: relative;
   padding: 120px 0;
   overflow: hidden;
-  background-image: url('../assets/bg-geetham.png');
+  background-image: url('/assets/bg-geetham.png');
   background-size: 500px;
   background-repeat: repeat;
   background-position: center;
@@ -45,7 +45,10 @@
   transition: all 0.8s ease;
 }
 
-.menu-header.reveal { opacity: 1; transform: none; }
+.menu-header.reveal {
+  opacity: 1;
+  transform: none;
+}
 
 .section-tag {
   display: inline-flex;
@@ -100,7 +103,10 @@
   transition: all 0.8s ease 0.3s;
 }
 
-.reveal-filters { opacity: 1; transform: none; }
+.reveal-filters {
+  opacity: 1;
+  transform: none;
+}
 
 .filter-btn {
   font-family: 'DM Sans', sans-serif;
@@ -112,7 +118,8 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(92, 74, 61, 0.22);
   color: #5C4A3D;
-  border-radius: 9999px;            /* Pill */
+  border-radius: 9999px;
+  /* Pill */
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -124,7 +131,8 @@
 }
 
 .filter-btn.active {
-  background: #D14136;              /* Kumkum Red */
+  background: #D14136;
+  /* Kumkum Red */
   border-color: #D14136;
   color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(209, 65, 54, 0.28);
@@ -139,8 +147,10 @@
 
 /* ── Card — Coconut White Squircle ─────────────── */
 .dish-card {
-  background: #FFFFFF;             /* Coconut White */
-    border-radius: 120px 16px 0 0;           /* Squircle */
+  background: #FFFFFF;
+  /* Coconut White */
+  border-radius: 120px 16px 0 0;
+  /* Squircle */
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px);
@@ -150,7 +160,10 @@
   box-shadow: 0 4px 20px rgba(42, 28, 20, 0.06);
 }
 
-.dish-card.reveal { opacity: 1; transform: none; }
+.dish-card.reveal {
+  opacity: 1;
+  transform: none;
+}
 
 .dish-card:hover {
   transform: translateY(-6px);
@@ -187,14 +200,17 @@
   transition: opacity 0.4s ease;
 }
 
-.dish-img-overlay.show { opacity: 1; }
+.dish-img-overlay.show {
+  opacity: 1;
+}
 
 /* Tag pill */
 .dish-tag {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: #D14136;             /* Kumkum Red */
+  background: #D14136;
+  /* Kumkum Red */
   color: white;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.62rem;
@@ -210,7 +226,7 @@
   top: 10px;
   right: 12px;
   font-size: 0.75rem;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -238,7 +254,8 @@
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem;
   font-weight: 600;
-  color: #2A1C14;                  /* Tamarind Brown */
+  color: #2A1C14;
+  /* Tamarind Brown */
   line-height: 1.3;
   margin: 0;
 }
@@ -247,7 +264,8 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #A3C2B0;                  /* Cardamom Green */
+  color: #A3C2B0;
+  /* Cardamom Green */
   white-space: nowrap;
 }
 
@@ -255,7 +273,8 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
-  color: #5C4A3D;                  /* Roasted Cumin */
+  color: #5C4A3D;
+  /* Roasted Cumin */
   line-height: 1.65;
   flex: 1;
   margin: 0;
@@ -275,7 +294,8 @@
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #A3C2B0;                  /* Cardamom Green */
+  color: #A3C2B0;
+  /* Cardamom Green */
   font-weight: 600;
 }
 
@@ -283,7 +303,8 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #D14136;                  /* Kumkum Red */
+  color: #D14136;
+  /* Kumkum Red */
   background: none;
   border: none;
   cursor: pointer;
@@ -311,12 +332,33 @@
 }
 
 /* ── Responsive ───────────────────────────────── */
-@media (max-width: 1200px) { .dishes-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px)  { .dishes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1200px) {
+  .dishes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dishes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 600px) {
-  .menu-section { padding: 80px 0; }
-  .menu-inner   { padding: 0 20px; }
-  .dishes-grid  { grid-template-columns: 1fr; }
-  .filter-btn   { padding: 8px 18px; font-size: 0.72rem; }
+  .menu-section {
+    padding: 80px 0;
+  }
+
+  .menu-inner {
+    padding: 0 20px;
+  }
+
+  .dishes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    font-size: 0.72rem;
+  }
 }

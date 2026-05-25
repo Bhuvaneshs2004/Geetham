@@ -1,7 +1,8 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
 import { scrollToSection } from '../utils/scrollTo';
-import logo from '../assets/Gethamlogo.png';
+import Image from 'next/image';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -84,10 +85,13 @@ const Navbar = () => {
           onClick={(e) => handleNav(e, '#home')}
         >
           <div className="logo-icon">
-            <img
-              src={logo}
+            <Image
+              src="/assets/Gethamlogo.png"
               alt="Geetham Logo"
               className="logo-image"
+              width={120}
+              height={40}
+              priority
             />
           </div>
         </a>
@@ -98,11 +102,10 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className={`nav-link ${
-                activeSection === link.href.replace('#', '')
-                  ? 'active'
-                  : ''
-              }`}
+              className={`nav-link ${activeSection === link.href.replace('#', '')
+                ? 'active'
+                : ''
+                }`}
               onClick={(e) => handleNav(e, link.href)}
             >
               {link.label}

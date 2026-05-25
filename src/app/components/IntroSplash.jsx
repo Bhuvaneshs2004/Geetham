@@ -1,6 +1,14 @@
+'use client';
 // import React, { useEffect, useRef, useState } from 'react';
 // import '../styles/IntroSplash.css';
-// import introVideo from '../assets/Intro.mp4';
+// <video
+// ref = { videoRef }
+// className = "intro-video"
+// autoPlay
+// muted
+// playsInline
+// src = "/assets/Intro.mp4"
+//   />
 
 // const IntroSplash = ({ onComplete }) => {
 //   const videoRef = useRef(null);

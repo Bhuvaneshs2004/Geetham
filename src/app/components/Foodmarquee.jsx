@@ -1,5 +1,6 @@
+'use client';
 import { useEffect, useRef } from "react";
-import "../styles/FoodMarquee.css";
+import "../styles/Foodmarquee.css";
 import foodgallery from '../components/Foodgallery';
 import FoodGallery from "../components/Foodgallery";
 
@@ -98,39 +99,39 @@ export default function FoodMarquee() {
   }, []);
 
   return (
-<section
-  className="fm-section"
-  ref={sectionRef}
-  aria-label="BB Café best sellers"
->
-    <>
-      {ROWS.map((words, rowIdx) => {
-        const styles = STYLE_MAP[rowIdx % STYLE_MAP.length];
-        return (
-          <div
-            key={rowIdx}
-            className="fm-row"
-            ref={(el) => (rowRefs.current[rowIdx] = el)}
-          >
-            {words.map((word, wIdx) => (
-              <span key={wIdx} className={`fm-word ${styles[wIdx % styles.length]}`}>
-                {word}
-              </span>
-            ))}
-            {words.map((word, wIdx) => (
-              <span
-                key={`dup-${wIdx}`}
-                className={`fm-word ${styles[wIdx % styles.length]}`}
-                aria-hidden="true"
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-        );
-      })}
+    <section
+      className="fm-section"
+      ref={sectionRef}
+      aria-label="BB Café best sellers"
+    >
+      <>
+        {ROWS.map((words, rowIdx) => {
+          const styles = STYLE_MAP[rowIdx % STYLE_MAP.length];
+          return (
+            <div
+              key={rowIdx}
+              className="fm-row"
+              ref={(el) => (rowRefs.current[rowIdx] = el)}
+            >
+              {words.map((word, wIdx) => (
+                <span key={wIdx} className={`fm-word ${styles[wIdx % styles.length]}`}>
+                  {word}
+                </span>
+              ))}
+              {words.map((word, wIdx) => (
+                <span
+                  key={`dup-${wIdx}`}
+                  className={`fm-word ${styles[wIdx % styles.length]}`}
+                  aria-hidden="true"
+                >
+                  {word}
+                </span>
+              ))}
+            </div>
+          );
+        })}
       </>
-      <FoodGallery/>
+      <FoodGallery />
     </section>
   );
 }
