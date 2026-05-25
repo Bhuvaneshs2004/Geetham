@@ -70,7 +70,7 @@ const DishCard = ({ dish, index }) => {
         <img src={dish.img} alt={dish.name} loading="lazy" />
         <div className={`dish-img-overlay ${hovered ? 'show' : ''}`} />
         {dish.tag && <span className="dish-tag">{dish.tag}</span>}
-        <span className="veg-mark">🟢</span>
+        {/* <span className="veg-mark">🟢</span> */}
       </div>
       <div className="dish-body">
         <div className="dish-top">

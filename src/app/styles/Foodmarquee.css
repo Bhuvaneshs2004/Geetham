@@ -1,0 +1,86 @@
+/* ═══════════════════════════════════════════════
+   FOOD MARQUEE — Geetham Design System
+   Solid Tamarind Brown band · Saffron Gold text
+   Parallax scroll-driven rows
+   ═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
+
+.fm-section {
+  /* Solid Tamarind Brown — wallpaper deliberately stops here */
+  /* background: #2A1C14; */
+  overflow: hidden;
+  position: relative;
+  /* padding: 8px 0; */
+}
+
+/* Subtle inner glow at top/bottom edges */
+.fm-section::before,
+.fm-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fm-section::before {
+  top: 0;
+  background: linear-gradient(to bottom, #2A1C14, transparent);
+}
+
+.fm-section::after {
+  bottom: 0;
+  /* background: linear-gradient(to top, #2A1C14, transparent); */
+}
+
+/* ── Row ──────────────────────────────────────── */
+.fm-row {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  will-change: transform;
+  line-height: 1.05;
+  padding: 4px 0;
+  transition: none;
+}
+
+/* ── Words ────────────────────────────────────── */
+.fm-word {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(52px, 8.5vw, 108px);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  padding: 0 20px;
+  display: inline-block;
+  user-select: none;
+  cursor: default;
+}
+
+/* filled — Saffron Gold (primary Cravings Marquee color) */
+.fm-word.filled {
+  color: #E8A355;
+  -webkit-text-stroke: 0px;
+}
+
+/* outline — deeper saffron stroke, transparent fill */
+.fm-word.outline {
+  color: transparent;
+  -webkit-text-stroke: 1.8px rgba(232, 163, 85, 0.65);
+}
+
+/* ghost — very faint warm stroke */
+.fm-word.ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 248, 235, 0.22);
+}
+
+/* ── Separator dots between words ─────────────── */
+.fm-word::before {
+  content: '';
+}
+
+/* Star bullet — added via word content in ROWS array,
+   e.g. "✦ FILTER COFFEE ✦" */

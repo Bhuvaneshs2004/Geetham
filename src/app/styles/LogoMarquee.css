@@ -1,0 +1,126 @@
+/* ── LogoMarquee.css ─────────────────────────────────────────────── */
+
+:root {
+  --marquee-speed:      30s;
+  --lm-gold:            #B8860B;
+  --lm-gold-pale:       rgba(184,134,11,0.15);
+  --lm-card-bg:         rgba(255,252,245,0.75);
+  --lm-card-border:     rgba(184,134,11,0.18);
+  --lm-card-hover-border: rgba(184,134,11,0.45);
+  --lm-bg-color:        #F5EFE4; /* match your bg-geetham.png base color for edge fades */
+}
+
+/* ── Section ─────────────────────────────────────────────────────── */
+.marquee-section {
+  padding: 60px 0;
+  overflow: hidden;
+  position: relative;
+
+  background-image: url('../background-img/bg-geetham.png');
+  background-size: 600px 500px;
+  background-position: center center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+/* ── Label ───────────────────────────────────────────────────────── */
+.marquee-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--lm-gold);
+  margin-bottom: 36px;
+}
+
+.marquee-label span {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── Track wrapper ───────────────────────────────────────────────── */
+.marquee-track-wrapper {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 16px 0;
+}
+
+/* Fade edges — use the cream base color so they blend with the bg image */
+.marquee-track-wrapper::before,
+.marquee-track-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 140px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-track-wrapper::before {
+  left: 0;
+}
+
+.marquee-track-wrapper::after {
+  right: 0;
+}
+
+/* ── Scrolling belt ──────────────────────────────────────────────── */
+.marquee-belt {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marqueeScroll var(--marquee-speed) linear infinite;
+}
+
+.marquee-belt:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Logo card ───────────────────────────────────────────────────── */
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 90px;
+  margin: 0 24px;
+  flex-shrink: 0;
+  background: var(--lm-card-bg);
+  border: 1px solid var(--lm-card-border);
+  border-radius: 4px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: var(--lm-card-hover-border);
+  box-shadow: 0 6px 20px rgba(184,134,11,0.12);
+}
+
+/* ── Logo image ──────────────────────────────────────────────────── */
+.logo-card img {
+  width: 130px;
+  height: 75px;
+  object-fit: contain;
+  /* No desaturation — keep logos at their natural colors on the light bg */
+  filter: none;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+
+.logo-card:hover img {
+  filter: drop-shadow(0 2px 8px rgba(184,134,11,0.20));
+}

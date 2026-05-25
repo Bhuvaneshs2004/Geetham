@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <section id="home" className="hero" ref={heroRef}>
       <div className="hero-bg">
-        <div className="hero-bg-image" />
+        {/* <div className="hero-bg-image" /> */}
         <div className="hero-overlay" />
         <div className="hero-grain" />
       </div>
@@ -29,16 +29,12 @@ const Hero = () => {
       <div className="hero-deco hero-deco-br" />
 
       <div className={`hero-content ${loaded ? 'animate-in' : ''}`}>
-        <div className="hero-eyebrow">
-          <span className="eyebrow-leaf">🌿</span>
-          <span>100% Pure Vegetarian</span>
-          <span className="eyebrow-leaf">🌿</span>
-        </div>
+
 
         <h1 className="hero-title">
-          <span className="hero-title-line-1">Indulge in</span>
-          <em className="hero-title-em">Authentic</em>
-          <span className="hero-title-line-3">Indian Food!</span>
+          <span className="hero-title-line-1 cormorant-garamond-Heading">Indulge in</span>
+          <em className="hero-title-em cormorant-garamond-Heading">Authentic</em>
+          <span className="hero-title-line-3 cormorant-garamond-Heading">Indian Food!</span>
         </h1>
 
         <p className="hero-subtitle">
@@ -79,12 +75,12 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="hero-scroll-hint" onClick={() => scrollToSection('#about')}>
+      {/* <div className="hero-scroll-hint" onClick={() => scrollToSection('#about')}>
         <div className="scroll-mouse">
           <div className="scroll-dot" />
         </div>
         <span>Scroll to explore</span>
-      </div>
+      </div> */}
 
       <div className="hero-float hero-float-1">
         <span className="float-emoji">🍛</span>

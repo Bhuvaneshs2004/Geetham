@@ -1,0 +1,240 @@
+/* ═══════════════════════════════════════════════
+   FOOTER — Geetham Design System
+   Solid Tamarind Brown · Coconut White headings
+   Ivory muted text · Pill social icons
+   ═══════════════════════════════════════════════ */
+
+/* ── Outer shell ─────────────────────────────── */
+.footer {
+  position: relative;
+  background-color: #2A1C14;       /* Solid Tamarind Brown — grounds the page */
+  color: #FFFFFF;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+}
+
+/* Subtle dot texture */
+.footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 1px 1px at 60px 60px,  rgba(232, 163, 85, 0.07) 100%, transparent 100%),
+    radial-gradient(ellipse 1px 1px at 180px 130px, rgba(232, 163, 85, 0.04) 100%, transparent 100%);
+  background-size: 200px 160px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Saffron Gold top border */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #E8A355 30%,
+    #E8A355 70%,
+    transparent
+  );
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* ── Main grid ───────────────────────────────── */
+.footer-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 48px 56px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 48px;
+}
+
+/* ── Brand column ────────────────────────────── */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo-wrap { margin-bottom: 24px; }
+
+.footer-logo-img {
+  width: auto;
+  height: 80px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  /* Ensure logo is visible on dark bg */
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+.footer-brand-desc {
+  font-size: 0.84rem;
+  line-height: 1.80;
+  color: rgba(255, 255, 255, 0.60);  /* Ivory muted */
+  margin-bottom: 28px;
+  max-width: 290px;
+}
+
+/* ── Social row — Pill shapes ────────────────── */
+.footer-social-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;             /* Pill */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.60);
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.footer-social-btn:hover {
+  border-color: #E8A355;           /* Saffron Gold on hover */
+  color: #E8A355;
+  background: rgba(232, 163, 85, 0.10);
+}
+
+/* ── Nav columns ─────────────────────────────── */
+.footer-col {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-col-heading {
+  font-size: 0.60rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #E8A355;                  /* Saffron Gold — column headings */
+  margin-bottom: 20px;
+}
+
+.footer-col-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-col-links li a {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.60);  /* Ivory muted */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+/* Animated underline on hover */
+.footer-col-links li a::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  background: #E8A355;
+  margin-right: 0;
+  flex-shrink: 0;
+  transition: width 0.22s ease, margin-right 0.22s ease;
+}
+
+.footer-col-links li a:hover {
+  color: #FFFFFF;
+}
+
+.footer-col-links li a:hover::before {
+  width: 12px;
+  margin-right: 6px;
+}
+
+/* ── Bottom bar ──────────────────────────────── */
+.footer-bottom {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.40);
+  letter-spacing: 0.03em;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-legal li a {
+  font-size: 0.70rem;
+  color: rgba(255, 255, 255, 0.40);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.footer-legal li a:hover { color: rgba(255, 255, 255, 0.80); }
+
+.footer-cert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 1024px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+  .footer-brand-desc { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    padding: 52px 24px 40px;
+  }
+  .footer-bottom {
+    padding: 20px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .footer-legal { gap: 16px; }
+}

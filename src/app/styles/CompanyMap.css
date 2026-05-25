@@ -1,0 +1,821 @@
+/**
+ * CompanyMap.css — Geetham Veg Brand Theme
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Brand palette extracted from the Geetham Veg logo:
+ *   Orange  #F47B20  — primary brand, wordmark
+ *   Green   #6DBE45  — leaf accent, "Veg" script
+ *   Charcoal #1A1A1A — logo background, dark UI
+ *   Cream   #FFF8F0  — warm light surface
+ *
+ * BEM naming: .company-map__[element]--[modifier]
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   0. LEAFLET CORE OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════ */
+@import "leaflet/dist/leaflet.css";
+
+.company-map__popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  border: 1px solid rgba(244, 123, 32, 0.15);
+}
+
+.company-map__popup .leaflet-popup-content {
+  margin: 0;
+  min-width: 220px;
+}
+
+.company-map__popup .leaflet-popup-tip-container {
+  margin-top: -1px;
+}
+
+.company-map__popup .leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.company-map__popup .leaflet-popup-close-button {
+  top: 8px;
+  right: 8px;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  z-index: 10;
+  transition: color 0.15s;
+}
+.company-map__popup .leaflet-popup-close-button:hover {
+  color: #fff !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. DESIGN TOKENS — Geetham Veg palette
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map {
+    width: 80%;
+    height: 80vh;
+  /* ── Brand colours ── */
+  --gv-orange:          #F47B20;
+  --gv-orange-deep:     #D4610A;
+  --gv-orange-light:    #FDE8D4;
+  --gv-green:           #6DBE45;
+  --gv-green-deep:      #4E9630;
+  --gv-green-light:     #E2F5D8;
+  --gv-charcoal:        #1A1A1A;
+  --gv-charcoal-mid:    #2C2C2C;
+
+  /* ── Semantic aliases (light theme) ── */
+  --cm-accent:          var(--gv-orange);
+  --cm-accent-hover:    var(--gv-orange-deep);
+  --cm-accent2:         var(--gv-green);
+
+  --cm-bg:              #FFFAF6;        /* warm off-white, nod to cream */
+  --cm-surface:         #FFF3E8;        /* soft orange tint */
+  --cm-border:          #F0D9C4;        /* warm tan border */
+  --cm-text-primary:    #1A1A1A;
+  --cm-text-secondary:  #6B4C2A;        /* warm brown */
+  --cm-text-muted:      #B08060;
+
+  /* ── Status ── */
+  --cm-success:         var(--gv-green);
+  --cm-error:           #DC2626;
+  --cm-warning:         var(--gv-orange);
+
+  /* ── Shadows — warm-tinted ── */
+  --cm-shadow-sm:       0 1px 3px rgba(244,123,32,.12), 0 1px 2px rgba(0,0,0,.06);
+  --cm-shadow-md:       0 4px 16px rgba(244,123,32,.14), 0 2px 6px rgba(0,0,0,.07);
+  --cm-shadow-lg:       0 12px 48px rgba(244,123,32,.18), 0 4px 16px rgba(0,0,0,.10);
+
+  /* ── Geometry ── */
+  --cm-radius-sm:       8px;
+  --cm-radius-md:       14px;
+  --cm-radius-lg:       20px;
+
+  /* ── Motion ── */
+  --cm-transition:      0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Typography ── */
+  --cm-font:            'Nunito', 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Dark theme: charcoal surfaces, orange accents glow ── */
+.company-map--dark {
+  --cm-bg:              #1A1A1A;
+  --cm-surface:         #252525;
+  --cm-border:          #3A2E22;
+  --cm-text-primary:    #FFF3E8;
+  --cm-text-secondary:  #D4A97A;
+  --cm-text-muted:      #7A5C3A;
+  --cm-shadow-sm:       0 1px 3px rgba(0,0,0,.4);
+  --cm-shadow-md:       0 4px 16px rgba(0,0,0,.5);
+  --cm-shadow-lg:       0 12px 48px rgba(0,0,0,.65);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. ROOT CONTAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map {
+  font-family: var(--cm-font);
+  background: var(--cm-bg);
+  border-radius: var(--cm-radius-lg);
+  box-shadow: var(--cm-shadow-lg);
+  overflow: hidden;
+  border: 1.5px solid var(--cm-border);
+  display: flex;
+  flex-direction: column;
+  transition: background var(--cm-transition), border-color var(--cm-transition);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. HEADER BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  /* Warm gradient echoing the logo background */
+  background: linear-gradient(90deg, #1A1A1A 0%, #2C2218 100%);
+  border-bottom: 2px solid var(--gv-orange);
+  gap: 12px;
+}
+
+.company-map__header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo badge: shows the Geetham leaf SVG on charcoal */
+.company-map__logo-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #F47B20, #D4610A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(244,123,32,0.55);
+  border: 1.5px solid rgba(255,255,255,0.12);
+}
+
+.company-map__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #F47B20;
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.company-map__subtitle {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+.company-map__header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.company-map__theme-btn,
+.company-map__sidebar-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--cm-radius-sm);
+  border: 1px solid rgba(244,123,32,0.35);
+  background: rgba(244,123,32,0.10);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background var(--cm-transition), color var(--cm-transition),
+              border-color var(--cm-transition), transform 0.15s;
+}
+
+.company-map__theme-btn:hover,
+.company-map__sidebar-toggle:hover {
+  background: var(--gv-orange);
+  color: #fff;
+  border-color: var(--gv-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(244,123,32,0.45);
+}
+
+.company-map__sidebar-toggle { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. BODY
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. SIDEBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__sidebar {
+  width: 285px;
+  flex-shrink: 0;
+  background: var(--cm-bg);
+  border-right: 1.5px solid var(--cm-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background var(--cm-transition), border-color var(--cm-transition),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Search ── */
+.company-map__search-wrap {
+  position: relative;
+  padding: 13px 14px 10px;
+  border-bottom: 1px solid var(--cm-border);
+}
+
+.company-map__search-icon {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cm-text-muted);
+  pointer-events: none;
+}
+
+.company-map__search {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  border: 1.5px solid var(--cm-border);
+  border-radius: var(--cm-radius-sm);
+  background: var(--cm-surface);
+  color: var(--cm-text-primary);
+  font-size: 0.82rem;
+  font-family: var(--cm-font);
+  font-weight: 500;
+  outline: none;
+  transition: border-color var(--cm-transition), box-shadow var(--cm-transition),
+              background var(--cm-transition), color var(--cm-transition);
+  box-sizing: border-box;
+}
+
+.company-map__search::placeholder { color: var(--cm-text-muted); }
+
+.company-map__search:focus {
+  border-color: var(--gv-orange);
+  box-shadow: 0 0 0 3px rgba(244,123,32,0.18);
+}
+
+/* ── Branch list ── */
+.company-map__branch-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cm-border) transparent;
+}
+.company-map__branch-list::-webkit-scrollbar { width: 4px; }
+.company-map__branch-list::-webkit-scrollbar-track { background: transparent; }
+.company-map__branch-list::-webkit-scrollbar-thumb {
+  background: var(--cm-border);
+  border-radius: 4px;
+}
+
+.company-map__branch-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background var(--cm-transition), border-color var(--cm-transition);
+  outline: none;
+}
+
+.company-map__branch-item:hover {
+  background: var(--gv-orange-light);
+}
+
+.company-map__branch-item--active {
+  background: rgba(244,123,32,0.09);
+  border-left-color: var(--gv-orange);
+}
+
+.company-map__branch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.company-map__branch-info { flex: 1; min-width: 0; }
+
+.company-map__branch-name {
+  display: block;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--cm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--cm-transition);
+}
+
+.company-map__branch-address {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--cm-text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--cm-transition);
+}
+
+.company-map__branch-chevron {
+  flex-shrink: 0;
+  color: var(--cm-text-muted);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--cm-transition), color var(--cm-transition);
+}
+
+.company-map__branch-item--active .company-map__branch-chevron {
+  color: var(--gv-orange);
+  transform: translateX(3px);
+}
+
+.company-map__no-results {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--cm-text-muted);
+}
+
+/* ── Geolocation panel ── */
+.company-map__geo-panel {
+  padding: 10px 16px;
+  border-top: 1px solid var(--cm-border);
+  min-height: 44px;
+}
+
+.company-map__geo-msg {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.company-map__geo-msg--loading  { color: var(--cm-text-muted); }
+.company-map__geo-msg--success  { color: var(--gv-green-deep); }
+.company-map__geo-msg--error    { color: var(--cm-error); flex-direction: column; align-items: flex-start; gap: 6px; }
+
+.company-map__retry-btn {
+  font-size: 0.73rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--cm-error);
+  background: transparent;
+  color: var(--cm-error);
+  cursor: pointer;
+  font-family: var(--cm-font);
+  font-weight: 600;
+  transition: background var(--cm-transition), color var(--cm-transition);
+}
+.company-map__retry-btn:hover { background: var(--cm-error); color: #fff; }
+
+/* Spinner */
+.company-map__spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--cm-border);
+  border-top-color: var(--gv-orange);
+  border-radius: 50%;
+  animation: cm-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes cm-spin { to { transform: rotate(360deg); } }
+
+/* ── Legend ── */
+.company-map__legend {
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--cm-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.company-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: var(--cm-text-secondary);
+  font-weight: 500;
+  transition: color var(--cm-transition);
+}
+
+.company-map__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Green pulsing dot for user */
+.company-map__legend-user {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gv-green);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(109,190,69,0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. MAP AREA
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: var(--map-height, 560px);
+  overflow: hidden;
+}
+
+.company-map__leaflet {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Floating theme badge */
+.company-map__theme-badge {
+  position: absolute;
+  bottom: 24px;
+  right: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(26,26,26,0.72);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.75);
+  font-size: 0.68rem;
+  font-family: var(--cm-font);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 800;
+  border: 1px solid rgba(244,123,32,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. CUSTOM MARKER ICONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__svg-icon {
+  background: none !important;
+  border: none !important;
+  animation: cm-marker-drop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cm-marker-drop {
+  from { opacity: 0; transform: translateY(-22px) scale(0.65); }
+  to   { opacity: 1; transform: translateY(0)      scale(1);    }
+}
+
+.company-map__svg-icon:hover svg {
+  transform: translateY(-4px) scale(1.1);
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── User location dot (green to match the leaf) ── */
+.company-map__user-dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.company-map__user-core {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--gv-green);
+  border: 2.5px solid #fff;
+  box-shadow: 0 2px 8px rgba(109,190,69,0.65);
+  z-index: 2;
+}
+
+.company-map__user-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(109,190,69,0.3);
+  animation: cm-pulse 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes cm-pulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  70%  { transform: scale(2.3); opacity: 0;   }
+  100% { transform: scale(1);   opacity: 0;   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. POPUP CARDS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__popup-card {
+  font-family: var(--cm-font);
+  background: #FFFAF6;
+  overflow: hidden;
+  min-width: 210px;
+}
+
+.company-map__popup-header {
+  padding: 14px 16px 12px;
+  background: linear-gradient(
+    135deg,
+    var(--branch-color, #F47B20) 0%,
+    color-mix(in srgb, var(--branch-color, #F47B20) 65%, #1A1A1A) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Leaf-shaped decorative blob in popup header */
+.company-map__popup-header::before {
+  content: "";
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 60px;
+  height: 60px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: rgba(255,255,255,0.10);
+}
+
+.company-map__popup-header::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: -18px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+
+.company-map__popup-type {
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.72);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.company-map__popup-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.company-map__popup-body {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.company-map__popup-address,
+.company-map__popup-hours {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: #5A3E28;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.company-map__popup-address svg,
+.company-map__popup-hours svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #C4904A;
+}
+
+.company-map__popup-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--gv-orange-deep);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.company-map__popup-link:hover {
+  color: var(--gv-orange);
+  text-decoration: underline;
+}
+
+.company-map__popup-link svg { flex-shrink: 0; color: #F4A96A; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. LEAFLET ATTRIBUTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__leaflet .leaflet-control-attribution {
+  font-size: 0.6rem;
+  background: rgba(255,250,246,0.82);
+  backdrop-filter: blur(4px);
+  border-radius: 6px 0 0 0;
+  padding: 3px 8px;
+}
+
+.company-map--dark .company-map__leaflet .leaflet-control-attribution {
+  background: rgba(26,26,26,0.75);
+  color: #D4A97A;
+}
+
+.company-map--dark .company-map__leaflet .leaflet-control-attribution a {
+  color: var(--gv-orange);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. LEAFLET ZOOM CONTROLS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map__leaflet .leaflet-control-zoom {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--cm-shadow-md);
+  border: 1.5px solid rgba(244,123,32,0.25);
+}
+
+.company-map__leaflet .leaflet-control-zoom a {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--gv-orange-deep);
+  background: #FFFAF6;
+  transition: background 0.15s, color 0.15s;
+}
+
+.company-map__leaflet .leaflet-control-zoom a:hover {
+  background: var(--gv-orange);
+  color: #fff;
+}
+
+.company-map--dark .company-map__leaflet .leaflet-control-zoom a {
+  background: #252525;
+  color: #F4A96A;
+  border-color: #3A2E22;
+}
+
+.company-map--dark .company-map__leaflet .leaflet-control-zoom a:hover {
+  background: var(--gv-orange);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. DARK MODE POPUP OVERRIDE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.company-map--dark .company-map__popup .leaflet-popup-content-wrapper {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border-color: rgba(244,123,32,0.2);
+}
+
+.company-map--dark .company-map__popup-card {
+  background: #252525;
+}
+
+.company-map--dark .company-map__popup-address,
+.company-map--dark .company-map__popup-hours {
+  color: #D4A97A;
+}
+
+.company-map--dark .company-map__popup-address svg,
+.company-map--dark .company-map__popup-hours svg {
+  color: #7A5C3A;
+}
+
+.company-map--dark .company-map__popup-link {
+  color: var(--gv-orange);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .company-map__sidebar { width: 245px; }
+}
+
+@media (max-width: 640px) {
+  .company-map { border-radius: var(--cm-radius-md); }
+
+  .company-map__sidebar-toggle { display: flex; }
+
+  .company-map__body { flex-direction: column-reverse; }
+
+  .company-map__sidebar {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    border-right: none;
+    border-top: 2px solid var(--gv-orange);
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color var(--cm-transition);
+  }
+
+  .company-map__sidebar--open {
+    max-height: 340px;
+    overflow-y: auto;
+  }
+
+  .company-map__branch-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 8px;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  .company-map__branch-list::-webkit-scrollbar { display: none; }
+
+  .company-map__branch-item {
+    min-width: 155px;
+    max-width: 195px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    padding: 10px;
+    border-radius: var(--cm-radius-sm);
+    margin: 0 4px;
+    background: var(--cm-surface);
+    flex-shrink: 0;
+  }
+
+  .company-map__branch-item--active {
+    border-bottom-color: var(--gv-orange);
+    background: rgba(244,123,32,0.09);
+  }
+
+  .company-map__branch-chevron { display: none; }
+
+  .company-map__map-wrap { min-height: 280px; }
+
+  .company-map__geo-panel,
+  .company-map__legend { display: none; }
+}
+
+@media (max-width: 380px) {
+  .company-map__header { padding: 12px 14px; }
+  .company-map__title  { font-size: 0.88rem; }
+  .company-map__logo-badge { width: 34px; height: 34px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. ACCESSIBILITY — reduce motion
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .company-map__svg-icon,
+  .company-map__user-pulse,
+  .company-map__spinner {
+    animation: none !important;
+  }
+  * { transition-duration: 0.01ms !important; }
+}
+.Map_outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}

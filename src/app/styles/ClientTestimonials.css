@@ -1,0 +1,210 @@
+/* ═══════════════════════════════════════════════
+   CLIENT TESTIMONIALS — Geetham Design System
+   bg-geetham wallpaper · Frosted glass Squircles
+   Saffron Gold stars · Tamarind Brown text
+   ═══════════════════════════════════════════════ */
+
+.testimonials-section {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+  /* bg-geetham wallpaper resumes here */
+  background-image: url('../assets/bg-geetham.png');
+  background-size: 500px;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Warm ivory wash over wallpaper */
+.testimonials-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 250, 242, 0.82);
+  pointer-events: none;
+}
+
+/* ── Inner ────────────────────────────────────── */
+.test-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Header ───────────────────────────────────── */
+.test-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.test-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #2A1C14;                  /* Tamarind Brown */
+  line-height: 1.2;
+  margin: 0;
+}
+
+.test-title em {
+  font-style: italic;
+  color: #D14136;                  /* Kumkum Red */
+}
+
+/* ── Grid ─────────────────────────────────────── */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ── Card — Frosted glass Squircle ─────────────── */
+.test-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(92, 74, 61, 0.18);
+  border-radius: 20px;             /* Squircle */
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.test-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(42, 28, 20, 0.12);
+}
+
+/* Featured card — slightly elevated */
+.test-card.featured {
+  border: 1.5px solid rgba(232, 163, 85, 0.45);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.test-card.featured::before {
+  content: '★ Featured Review';
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5C4A3D;
+  background: #E8A355;
+  padding: 4px 14px;
+  border-radius: 9999px;
+}
+
+/* ── Top (stars) ──────────────────────────────── */
+.test-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Stars ────────────────────────────────────── */
+.test-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.test-star {
+  color: #E8A355;                  /* Saffron Gold */
+  font-size: 1rem;
+}
+
+/* ── Quote ────────────────────────────────────── */
+.test-quote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #2A1C14;                  /* Tamarind Brown */
+  line-height: 1.75;
+  flex: 1;
+  margin: 0;
+  /* Opening quote mark */
+  position: relative;
+  padding-left: 20px;
+}
+
+.test-quote::before {
+  content: '"';
+  position: absolute;
+  left: 0;
+  top: -6px;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: rgba(232, 163, 85, 0.45);
+  line-height: 1;
+  font-style: normal;
+}
+
+/* ── Divider ──────────────────────────────────── */
+.test-divider {
+  height: 1px;
+  background: rgba(92, 74, 61, 0.12);
+}
+
+/* ── Author ───────────────────────────────────── */
+.test-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.test-avatar {
+  width: 44px;
+  height: 44px;
+  /* Temple Archway avatar shape */
+  border-radius: 999px 999px 12px 12px;
+  background: linear-gradient(135deg, #D14136, #b8352c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.test-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.test-author-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2A1C14;
+  display: block;
+}
+
+.test-author-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.70rem;
+  color: #5C4A3D;
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 1100px) {
+  .test-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .testimonials-section { padding: 80px 0; }
+  .test-inner { padding: 0 20px; }
+  .test-grid { grid-template-columns: 1fr; }
+}
