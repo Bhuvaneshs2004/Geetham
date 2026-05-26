@@ -65,7 +65,7 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className="hero-stats">
+        {/* <div className="hero-stats">
           <div className="hero-stat">
             <span className="stat-num">15+</span>
             <span className="stat-label">Years of Excellence</span>
@@ -80,7 +80,7 @@ const Hero = () => {
             <span className="stat-num">4.9★</span>
             <span className="stat-label">Customer Rating</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* <div className="hero-scroll-hint" onClick={() => scrollToSection('#about')}>
