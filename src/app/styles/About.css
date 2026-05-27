@@ -1,13 +1,11 @@
+/* ─── Base Section ─── */
 .about {
   position: relative;
   padding: 120px 0;
-  background: url('/assets/bg-geetham.png') center/cover fixed;
-  background-repeat: repeat;
-  background-size: 500px;
+  background: url('/assets/bg-geetham.png') center/500px repeat fixed;
   overflow: hidden;
 }
 
-/* Optional overlay to keep it subtle */
 .about::before {
   content: '';
   position: absolute;
@@ -16,6 +14,7 @@
   z-index: 0;
 }
 
+/* ─── Inner Grid ─── */
 .about-inner {
   position: relative;
   z-index: 1;
@@ -28,58 +27,26 @@
   align-items: center;
 }
 
-.about-text {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  font-weight: 400;
-  line-height: 1.8;
-  color: var(--roasted-cumin); /* #5C4A3D */
+/* ─── Visual / Image Block ─── */
+.about-visual {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+.about-visual.reveal { opacity: 1; transform: none; }
 
-.about-pillar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.55);
-  border-left: 2px solid var(--saffron);
-  transition: all 0.4s ease, background 0.3s ease;
-  backdrop-filter: blur(6px);
+.about-img-main {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 }
-
-.about-pillar:hover {
-  background: rgba(255, 255, 255, 0.75);
-  transform: translateX(4px);
-}
-
-.about-pillar strong {
+.about-img-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  font-family: var(--font-ui);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--tamarind); /* #2A1C14 */
-}
-
-.about-pillar small {
-  display: block;
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  color: var(--roasted-cumin);
-  margin-top: 2px;
-}
-
-.about-bg-text {
-  position: absolute;
-  bottom: -40px;
-  right: -40px;
-  font-family: var(--font-display);
-  font-size: 200px;
-  font-weight: 900;
-  color: rgba(42, 28, 20, 0.04);
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: -0.05em;
-  z-index: 0;
 }
 
 .about-img-accent {
@@ -90,7 +57,14 @@
   aspect-ratio: 1;
   overflow: hidden;
   z-index: 3;
-  border: 4px solid rgba(255, 248, 240, 0.9); /* matches light bg instead of dark */
+  border: 4px solid rgba(255, 248, 240, 0.9);
+  border-radius: 6px;
+}
+.about-img-accent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about-badge {
@@ -105,6 +79,19 @@
   align-items: center;
   text-align: center;
   min-width: 90px;
+  border-radius: 4px;
+}
+.badge-num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.badge-text {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.85);
+  margin-top: 4px;
+  line-height: 1.4;
 }
 
 .about-pattern {
@@ -116,8 +103,10 @@
   background: radial-gradient(circle, rgba(92, 74, 61, 0.15) 1px, transparent 1px);
   background-size: 16px 16px;
   z-index: 1;
+  pointer-events: none;
 }
 
+/* ─── Content Block ─── */
 .about-content {
   position: relative;
   z-index: 1;
@@ -130,16 +119,161 @@
 }
 .about-content.reveal { opacity: 1; transform: none; }
 
-.about-visual {
-  position: relative;
-  z-index: 1;
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.about-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--roasted-cumin);
 }
-.about-visual.reveal { opacity: 1; transform: none; }
 
-.Dosaimage{
-  width: 100%;
-  height: 100%;
+/* ─── Pillars ─── */
+.about-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-pillar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.55);
+  border-left: 2px solid var(--saffron);
+  border-radius: 0;
+  transition: background 0.3s ease, transform 0.4s ease;
+  backdrop-filter: blur(6px);
+}
+.about-pillar:hover {
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateX(4px);
+}
+.about-pillar strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tamarind);
+}
+.about-pillar small {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--roasted-cumin);
+  margin-top: 2px;
+}
+
+/* ─── CTA Buttons ─── */
+.about-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ─── BG Text ─── */
+.about-bg-text {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  font-family: var(--font-display);
+  font-size: 200px;
+  font-weight: 900;
+  color: rgba(42, 28, 20, 0.04);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════
+   TABLET  (≤ 1024px)
+═══════════════════════════════ */
+@media (max-width: 1024px) {
+  .about-inner {
+    gap: 60px;
+    padding: 0 40px;
+  }
+  .about-bg-text {
+    font-size: 140px;
+  }
+}
+
+/* ═══════════════════════════════
+   MOBILE  (≤ 768px)
+═══════════════════════════════ */
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 0;
+    background-attachment: scroll; /* fixed bg is janky on iOS */
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr;   /* stack columns vertically */
+    gap: 48px;
+    padding: 0 20px;
+  }
+
+  /* Image block stacks first on mobile */
+  .about-visual {
+    order: 1;
+    transform: translateY(30px); /* slide up instead of slide right */
+    margin-bottom: 50px;         /* room for accent image that overlaps bottom */
+  }
+  .about-visual.reveal { transform: none; }
+
+  .about-content {
+    order: 2;
+    transform: translateY(30px);
+    gap: 16px;
+  }
+  .about-content.reveal { transform: none; }
+
+  /* Scale down the badge so it doesn't overflow */
+  .about-badge {
+    top: -14px;
+    right: 8px;
+    padding: 12px 14px;
+    min-width: 70px;
+  }
+  .badge-num  { font-size: 1.4rem; }
+  .badge-text { font-size: 0.62rem; }
+
+  /* Accent image: smaller, fully visible, no negative bottom overflow */
+  .about-img-accent {
+    width: 42%;
+    bottom: -36px;
+    right: 0;
+    border-width: 3px;
+  }
+
+  /* Hide decorative dot pattern on small screens */
+  .about-pattern { display: none; }
+
+  .about-text { font-size: 1rem; }
+
+  .about-bg-text {
+    font-size: 80px;
+    bottom: -20px;
+    right: -10px;
+  }
+
+  /* Buttons stack on very small screens */
+  .about-cta {
+    flex-direction: column;
+  }
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════
+   SMALL MOBILE  (≤ 400px)
+═══════════════════════════════ */
+@media (max-width: 400px) {
+  .about-inner { padding: 0 16px; }
+  .about-badge { display: none; } /* too cramped at this width */
+  .about-img-accent { width: 38%; }
 }

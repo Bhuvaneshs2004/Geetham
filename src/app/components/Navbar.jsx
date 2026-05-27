@@ -19,6 +19,8 @@ const navLinks = [
 
   { label: 'Specials', href: '#food-gallery', type: 'scroll' },
 
+  {label:'Events & Corporate Booking', href:'/events', type:'route'}
+
 ];
 
 const Navbar = () => {
