@@ -1,14 +1,12 @@
 'use client';
 import { useEffect, useRef } from "react";
 import "../styles/Foodmarquee.css";
-import foodgallery from '../components/Foodgallery';
-import FoodGallery from "../components/Foodgallery";
 
 const ROWS = [
-  ["pancake", "acai bowl", "matcha"],
-  ["bubble tea", "poke", "avocado toast"],
-  ["chicken bao", "satay", "waffle"],
-  ["french toast", "açaí", "latte"],
+  ["idly", "ghee pongal", "medu vada"],
+  ["masala dosa", "mini tiffin", "filter coffee"],
+  ["south indian meals", "sambar rice", "curd rice"],
+  ["rava dosa", "chapati kurma", "elaneer payasam"],
 ];
 
 const STYLE_MAP = [
@@ -131,7 +129,6 @@ export default function FoodMarquee() {
           );
         })}
       </>
-      <FoodGallery />
     </section>
   );
 }

@@ -153,13 +153,13 @@
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  background: linear-gradient(145deg, #F47B20, #D4610A);
+  /* background: linear-gradient(145deg, #F47B20, #D4610A); */
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(244,123,32,0.55);
+  /* box-shadow: 0 4px 14px rgba(244,123,32,0.55); */
   border: 1.5px solid rgba(255,255,255,0.12);
 }
 
@@ -813,9 +813,13 @@
   * { transition-duration: 0.01ms !important; }
 }
 .Map_outer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 120px 0;
+  background: url('/assets/bg-geetham.png') center/cover fixed;
+  background-repeat: repeat;
+  background-size: 500px;
+  overflow: hidden;
 }

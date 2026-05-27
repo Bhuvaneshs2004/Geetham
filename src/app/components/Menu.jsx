@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import '../styles/Menu.css';

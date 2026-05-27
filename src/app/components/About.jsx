@@ -1,3 +1,5 @@
+
+'use client';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import '../styles/About.css';
 import { scrollToSection } from '../utils/scrollTo';
@@ -14,7 +16,7 @@ const About = () => {
             <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80" alt="South Indian thali" />
           </div>
           <div className="about-img-accent">
-            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80" alt="Dosas" />
+            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80" alt="Dosas" className='Dosaimage'/>
           </div>
           <div className="about-badge">
             <span className="badge-num">15+</span>

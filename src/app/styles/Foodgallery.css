@@ -3,18 +3,33 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --pink-bg:   #f7bdd0;
-  --pink-deep: #d4638a;
+  --tamarind:      #2A1C14;
+  --roasted-cumin: #5C4A3D;
+  --kumkum:        #D14136;
+  --saffron:       #E8A355;
+  --cardamom:      #A3C2B0;
+  --cream:         #FFF8F0;
+  --cream-deep:    #F2E8D9;
 
   --scallop-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%201024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M%20477.14%20805.81%20C472.56%2C807.93%20469.71%2C808.47%20462.00%2C808.71%20C447.36%2C809.16%20436.99%2C804.97%20427.23%2C794.65%20C421.42%2C788.51%20419.40%2C784.84%20415.09%2C772.60%20C406.67%2C748.73%20392.58%2C732.19%20372.44%2C722.54%20C359.23%2C716.21%20355.13%2C715.54%20329.00%2C715.47%20C303.79%2C715.40%20301.98%2C715.11%20292.52%2C709.56%20C286.25%2C705.89%20278.25%2C696.76%20274.73%2C689.26%20C270.20%2C679.60%20269.78%2C667.96%20273.41%2C652.32%20C279.29%2C626.95%20275.52%2C604.22%20262.04%2C583.71%20C254.24%2C571.85%20245.01%2C563.99%20227.59%2C554.41%20C222.68%2C551.71%20216.59%2C547.47%20214.04%2C545.00%20C199.24%2C530.62%20195.88%2C508.06%20205.78%2C489.58%20C207.28%2C486.79%20212.85%2C479.96%20218.17%2C474.40%20C233.60%2C458.29%20240.89%2C445.19%20244.56%2C427.04%20C246.62%2C416.81%20246.13%2C402.01%20243.38%2C391.50%20C242.37%2C387.65%20238.26%2C378.07%20234.25%2C370.21%20C223.90%2C349.95%20222.15%2C341.54%20225.53%2C328.54%20C230.28%2C310.33%20243.32%2C298.49%20263.09%2C294.44%20C295.29%2C287.85%20315.43%2C273.19%20327.55%2C247.50%20C333.03%2C235.89%20334.75%2C228.59%20335.93%2C211.93%20C337.34%2C192.23%20340.29%2C184.75%20350.40%2C175.19%20C353.49%2C172.26%20359.00%2C168.48%20362.74%2C166.70%20C368.78%2C163.84%20370.63%2C163.46%20380.07%2C163.17%20L%20390.63%20162.83%20L%20403.57%20167.82%20C420.51%2C174.36%20426.15%2C175.40%20441.27%2C174.73%20C450.68%2C174.32%20455.12%2C173.63%20460.50%2C171.74%20C480.89%2C164.59%20492.58%2C155.34%20505.95%2C135.76%20C512.73%2C125.83%20517.42%2C121.65%20526.87%2C117.14%20C534.07%2C113.70%20535.06%2C113.50%20544.50%2C113.50%20C562.42%2C113.50%20571.89%2C118.92%20584.10%2C136.14%20C593.40%2C149.26%20596.63%2C152.80%20604.92%2C158.94%20C619.41%2C169.68%20635.33%2C175.00%20653.00%2C175.00%20C665.47%2C175.00%20674.07%2C173.10%20687.50%2C167.36%20C696.26%2C163.62%20696.82%2C163.52%20708.50%2C163.51%20C719.94%2C163.50%20720.82%2C163.65%20727.26%2C166.70%20C738.96%2C172.25%20748.56%2C183.46%20751.92%2C195.50%20C752.53%2C197.70%20753.50%2C205.47%20754.06%2C212.77%20C755.32%2C228.93%20757.74%2C238.96%20762.93%2C249.50%20C774.51%2C272.99%20794.47%2C287.28%20825.01%2C293.95%20C841.20%2C297.48%20849.19%2C302.20%20856.64%2C312.64%20C864.36%2C323.46%20867.36%2C335.95%20865.03%2C347.52%20C864.32%2C351.09%20860.63%2C359.96%20855.91%2C369.50%20C851.55%2C378.30%20847.27%2C388.20%20846.41%2C391.50%20C843.87%2C401.16%20843.41%2C419.25%20845.47%2C428.61%20C849.36%2C446.36%20855.35%2C457.16%20869.59%2C472.09%20C881.05%2C484.11%20884.32%2C488.70%20887.06%2C496.66%20C891.30%2C508.99%20890.50%2C520.44%20884.55%2C532.56%20C879.91%2C542.00%20872.47%2C548.87%20858.04%2C557.02%20C821.67%2C577.58%20806.99%2C611.49%20816.35%2C653.33%20C817.81%2C659.84%20819.00%2C667.73%20819.00%2C670.87%20C819.00%2C689.81%20807.20%2C706.54%20788.74%2C713.75%20C785.25%2C715.11%20780.33%2C715.43%20761.00%2C715.51%20C733.94%2C715.63%20731.39%2C716.10%20715.50%2C723.94%20C704.08%2C729.57%20693.68%2C738.35%20686.60%2C748.35%20C681.06%2C756.17%20678.63%2C761.02%20674.41%2C772.67%20C669.94%2C785.01%20667.67%2C789.32%20662.85%2C794.54%20C654.48%2C803.63%20642.30%2C809.01%20630.16%2C808.99%20C618.87%2C808.97%20609.94%2C805.75%20600.43%2C798.26%20C585.79%2C786.74%20573.77%2C780.69%20561.01%2C778.41%20C544.21%2C775.41%20524.92%2C777.69%20510.99%2C784.30%20C506.87%2C786.26%20498.84%2C791.32%20493.14%2C795.54%20C487.44%2C799.76%20480.24%2C804.38%20477.14%2C805.81%20Z%22%2F%3E%3C%2Fsvg%3E");
 }
 
 /* ── Page ──────────────────────────────────────────── */
 .fg-page {
-  background: var(--pink-bg);
+  background: url('/assets/bg-geetham.png') center/cover;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+}
+
+/* Warm overlay so the pattern doesn't compete with food images */
+.fg-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 240, 0.55);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── Corner blobs ──────────────────────────────────── */
@@ -22,7 +37,6 @@
   position: absolute;
   width: clamp(130px, 16vw, 220px);
   height: clamp(130px, 16vw, 220px);
-  background: var(--pink-deep);
   opacity: 0.72;
   -webkit-mask-image: var(--scallop-mask);
           mask-image: var(--scallop-mask);
@@ -35,10 +49,28 @@
   pointer-events: none;
   z-index: 0;
 }
-.fg-corner--tl { top: -55px;  left: -55px;  transform: rotate(-20deg); }
-.fg-corner--tr { top: -55px;  right: -55px; transform: rotate(30deg);  }
-.fg-corner--bl { bottom: -55px; left: -55px; transform: rotate(15deg); }
-.fg-corner--br { bottom: -55px; right: -55px; transform: rotate(-10deg);}
+
+/* Alternate corners between saffron and kumkum */
+.fg-corner--tl {
+  top: -55px; left: -55px;
+  transform: rotate(-20deg);
+  background: var(--saffron);
+}
+.fg-corner--tr {
+  top: -55px; right: -55px;
+  transform: rotate(30deg);
+  background: var(--kumkum);
+}
+.fg-corner--bl {
+  bottom: -55px; left: -55px;
+  transform: rotate(15deg);
+  background: var(--kumkum);
+}
+.fg-corner--br {
+  bottom: -55px; right: -55px;
+  transform: rotate(-10deg);
+  background: var(--saffron);
+}
 
 /* ── Grid ─────────────────────────────────────────── */
 .fg-grid {
@@ -63,7 +95,6 @@
   transition: transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ── Hover — applies to ALL cells including menu ───── */
 .fg-cell:hover {
   transform: scale(1.08) !important;
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
@@ -84,6 +115,8 @@
           mask-repeat: no-repeat;
   overflow: hidden;
   flex-shrink: 0;
+  /* Subtle warm ring around each food blob */
+  filter: drop-shadow(0 4px 16px rgba(42, 28, 20, 0.18));
 }
 
 .fg-blob-img {
@@ -97,7 +130,7 @@
   transform: scale(1.07);
 }
 
-/* ── MENU blob — same mask, pink fill + text overlay ── */
+/* ── MENU blob ──────────────────────────────────────── */
 .fg-blob--menu {
   position: relative;
   display: flex;
@@ -105,19 +138,19 @@
   justify-content: center;
 }
 
-/* solid pink background that fills the blob shape */
+/* Saffron/orange solid fill — matches brand */
 .fg-menu-bg {
   position: absolute;
   inset: 0;
-  background: #f0a0be;
+  background: var(--saffron);
 }
 
-/* inner scallop ring for depth — masked to same blob shape, inset */
+/* Inner ring — tamarind brown for depth */
 .fg-blob--menu::after {
   content: "";
   position: absolute;
   inset: 10%;
-  background: #dd7aaa;
+  background: var(--kumkum);
   -webkit-mask-image: var(--scallop-mask);
           mask-image: var(--scallop-mask);
   -webkit-mask-size: 100% 100%;
@@ -136,13 +169,15 @@
   align-items: center;
   gap: 0.25em;
   pointer-events: none;
+  padding-left: 26px;
 }
 
+/* Green dot — kept as brand accent (cardamom green) */
 .fg-menu-dot {
   width: 0.65em;
   height: 0.65em;
   border-radius: 50%;
-  background: #1a7a5e;
+  background: var(--cardamom);
   display: block;
   margin-bottom: 0.1em;
 }
@@ -151,17 +186,19 @@
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(1.1rem, 2.6vw, 2.4rem);
   font-weight: 700;
-  color: white;
+  color: var(--cream);
   letter-spacing: 0.14em;
   line-height: 1;
+  text-shadow: 0 2px 8px rgba(42, 28, 20, 0.3);
 }
 
 .fg-menu-line {
   display: block;
   width: 4em;
   height: 1.5px;
-  background: white;
+  background: var(--cream);
   border-radius: 2px;
+  opacity: 0.8;
 }
 
 /* ── Responsive ────────────────────────────────────── */

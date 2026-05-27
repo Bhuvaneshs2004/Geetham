@@ -1,119 +1,72 @@
-/* ── LogoMarquee.css ─────────────────────────────────────────────── */
-
-:root {
-  --marquee-speed: 40s;
-  /* Slowed down slightly for a more premium feel */
-}
-
-/* ── Section ─────────────────────────────────────────────────────── */
+/* ── Section ── */
 .marquee-section {
-  padding: 80px 0;
+  width: 100%;
+  padding: 2rem 0;
+  background: #fff;          /* change to match your bg */
   overflow: hidden;
-  position: relative;
-  /* Solid Cardamom Green background to separate B2B from the food pattern */
-  background-color: var(--cardamom-green);
 }
 
-/* ── Label ───────────────────────────────────────────────────────── */
 .marquee-label {
-  position: relative;
-  z-index: 1;
   text-align: center;
-  font-family: var(--font-ui);
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--tamarind-brown);
-  margin-bottom: 40px;
+  color: #888;
+  margin-bottom: 1.5rem;
 }
 
-.marquee-label span {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* ── Track wrapper ───────────────────────────────────────────────── */
+/* ── Track ── */
 .marquee-track-wrapper {
-  position: relative;
-  z-index: 1;
   overflow: hidden;
-  padding: 20px 0;
+  width: 100%;
+  /* Fade edges — remove if not wanted */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
 }
 
-/* Fade edges — perfectly matched to Cardamom Green */
-.marquee-track-wrapper::before,
-.marquee-track-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 150px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.marquee-track-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--cardamom-green), transparent);
-}
-
-.marquee-track-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--cardamom-green), transparent);
-}
-
-/* ── Scrolling belt ──────────────────────────────────────────────── */
+/* ── Belt: one long flex row that slides left ── */
 .marquee-belt {
   display: flex;
   align-items: center;
-  width: max-content;
-  animation: marqueeScroll var(--marquee-speed) linear infinite;
+  width: max-content;         /* shrink-wraps all cards */
+  animation: marquee-scroll 28s linear infinite;
 }
 
 .marquee-belt:hover {
-  animation-play-state: paused;
+  animation-play-state: paused; /* pause on hover — remove if not wanted */
 }
 
-@keyframes marqueeScroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ── Logo card (No more coffins!) ────────────────────────────────── */
+/* ── Individual card ── */
 .logo-card {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 80px;
-  margin: 0 30px;
-  flex-shrink: 0;
-  /* Stripped out all backgrounds, borders, and backdrop filters */
-  background: transparent;
-  cursor: pointer;
-  transition: var(--transition);
+  padding: 0 2.5rem;          /* horizontal gap between logos */
 }
 
-/* ── Logo image (Monochrome Silhouettes) ─────────────────────────── */
-.logo-card img {
+/* ── Wrapper that gives Next/Image a sized container ── */
+.logo-img-wrapper {
+  position: relative;
   width: 140px;
   height: 70px;
-  object-fit: contain;
-  /* Forces all logos into a faded monochrome silhouette */
-  filter: brightness(0) opacity(0.4);
-  transition: var(--transition);
-  display: block;
 }
 
-.logo-card:hover img {
-  /* Snaps to a darker, crisper silhouette on hover */
-  filter: brightness(0) opacity(0.8);
-  transform: scale(1.05);
+/* ── Keyframe: scroll exactly one set of 10 logos ── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* -50% because we duplicated the list */
 }

@@ -4,13 +4,16 @@ import React, { useState, useEffect } from 'react';
 import IntroSplash from './components/IntroSplash';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Food from './components/Foodmarquee';
+import FoodMarquee from './components/Foodmarquee';
+import Speacials from './components/Foodgallery';
+
 import Menu from './components/Menu';
 import dynamic from 'next/dynamic';
 
-const CompanyMap = dynamic(() => import('./components/CompanyMap'), {
-    ssr: false
-});
+const CompanyMap = dynamic(
+  () => import('./components/CompanyMap'),
+  { ssr: false }
+);
 import Testimonials from './components/ClientTestimonials';
 import Marquee from './components/LogoMarquee';
 import Footer from './components/Footer';
@@ -38,10 +41,11 @@ export default function HomePage() {
             }}>
                 <Navbar />
                 <Hero />
-                <Food />
+                <FoodMarquee />
+                <Speacials/>
                 <Testimonials />
-                <CompanyMap companyName='Geetham' height='560px' />
-                <Menu />
+                {/* <CompanyMap companyName='Geetham' height='560px' /> */}
+                {/* <Menu /> */}
                 <Marquee />
                 <Footer />
             </div>

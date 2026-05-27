@@ -1,32 +1,7 @@
-/**
- * CompanyMap.jsx
- * ─────────────────────────────────────────────────────────────────────────────
- * A production-ready, fully interactive Leaflet.js map component for company
- * branch/store locations with:
- *   • Custom SVG markers for company locations & user position
- *   • Browser geolocation with error handling + loading states
- *   • Smart auto-centering (fits all markers in view)
- *   • Marker clustering via leaflet.markercluster
- *   • Dark / Light map theme toggle
- *   • Branch search / filter
- *   • Animated marker appearance
- *   • Responsive design (mobile → desktop)
- *   • Clean popup cards with contact info
- *
- * ─────────────────────────────────────────────────────────────────────────────
- * DEPENDENCIES (install once – see README section at bottom of this file)
- *   npm install leaflet react-leaflet leaflet.markercluster
- *   npm install @changey/react-leaflet-markercluster
- * ─────────────────────────────────────────────────────────────────────────────
- */
-"use client";
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+'use client';
+
+import React, {useState, useEffect, useRef, useCallback, useMemo,} from "react";
+
 import {
   MapContainer,
   TileLayer,
@@ -51,6 +26,7 @@ L.Icon.Default.mergeOptions({
 // ─────────────────────────────────────────────────────────────────────────────
 
 import "../styles/CompanyMap.css";
+import logo from '../../../public/assets/Gethamlogo.png'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIGURATION – Edit these to customise the map for your company
@@ -442,9 +418,13 @@ export default function CompanyMap({
           <div className="company-map__header-left">
             <div className="company-map__logo-badge" aria-hidden="true">
               {/* Leaf icon — echoes the Geetham Veg logo leaf motif */}
-              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2C12.18 5 10 7 10 7c-3 0-6 3.5-6 3.5C6 13 9 13 12 12c3-1 5 0 5 0z" />
-              </svg>
+<img
+  src="/assets/Gethamlogo.png"
+  alt="Getham Logo"
+  width="40"
+  height="30"
+  className="MapLogo"
+/>
             </div>
             <div>
               <h2 className="company-map__title">{companyName}</h2>
