@@ -188,3 +188,9 @@ section {
   overflow: hidden;
   box-shadow: var(--shadow-soft);
 }
+.LandingPage{
+    background-image: url('/assets/bg-geetham.png');
+  background-size: 500px;
+  background-repeat: repeat;
+  background-position: center;
+}

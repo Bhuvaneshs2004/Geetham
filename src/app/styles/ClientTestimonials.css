@@ -8,21 +8,18 @@
   position: relative;
   padding: 120px 0;
   overflow: hidden;
-  /* bg-geetham wallpaper resumes here */
-  background-image: url('/assets/bg-geetham.png');
-  background-size: 500px;
-  background-repeat: repeat;
-  background-position: center;
+
+  background: transparent;
 }
 
 /* Warm ivory wash over wallpaper */
-.testimonials-section::before {
+/* .testimonials-section::before {
   content: '';
   position: absolute;
   inset: 0;
   background: rgba(255, 250, 242, 0.82);
   pointer-events: none;
-}
+} */
 
 /* ── Inner ────────────────────────────────────── */
 .test-inner {

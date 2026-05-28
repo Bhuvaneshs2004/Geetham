@@ -9,6 +9,7 @@ import Speacials from './components/Foodgallery';
 
 import Menu from './components/Menu';
 import dynamic from 'next/dynamic';
+import './styles/global.css'
 
 const CompanyMap = dynamic(
   () => import('./components/CompanyMap'),
@@ -38,7 +39,7 @@ export default function HomePage() {
                 opacity: introComplete ? 1 : 0,
                 transition: 'opacity 0.5s ease',
                 pointerEvents: introComplete ? 'all' : 'none',
-            }}>
+            }} className='LandingPage'>
                 <Navbar />
                 <Hero />
                 <FoodMarquee />

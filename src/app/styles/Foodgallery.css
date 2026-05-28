@@ -16,21 +16,21 @@
 
 /* ── Page ──────────────────────────────────────────── */
 .fg-page {
-  background: url('/assets/bg-geetham.png') center/cover;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
   position: relative;
-  overflow: hidden;
+  overflow: hidden; 
+  background:transparent;
 }
 
 /* Warm overlay so the pattern doesn't compete with food images */
-.fg-page::before {
+/* .fg-page::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 248, 240, 0.55);
-  pointer-events: none;
-  z-index: 0;
-}
+  /* background: rgba(255, 248, 240, 0.55); */
+
 
 /* ── Corner blobs ──────────────────────────────────── */
 .fg-corner {
