@@ -176,7 +176,7 @@ const Navbar = () => {
             })}
           </nav>
 
-          {/* Right */}
+          {/* Right — phones + hamburger (open trigger only) */}
           <div className="navbar-right">
             <div className="nav-phones">
               <a href="tel:7397222111" className="nav-phone">
@@ -193,25 +193,42 @@ const Navbar = () => {
               </a>
             </div>
 
-            {/* Hamburger */}
-            <button
-              className={`hamburger ${open ? 'active' : ''}`}
-              onClick={() => setOpen(!open)}
-              aria-label="Toggle menu"
-            >
-              {open ? (
-                <svg className="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                  <path fill="currentColor" d="M55.1 73.5C45.7 64.1 45.7 48.9 55.1 39.5C64.5 30.1 79.7 30.1 89.1 39.5L192 142.4L294.9 39.5C304.3 30.1 319.5 30.1 328.9 39.5C338.3 48.9 338.3 64.1 328.9 73.5L226 176.4L328.9 279.3C338.3 288.7 338.3 303.9 328.9 313.3C319.5 322.7 304.3 322.7 294.9 313.3L192 210.4L89.1 313.3C79.7 322.7 64.5 322.7 55.1 313.3C45.7 303.9 45.7 288.7 55.1 279.3L158 176.4L55.1 73.5z"/>
-                </svg>
-              ) : (
-                <svg className="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            {/* Hamburger — only shown when drawer is CLOSED */}
+            {!open && (
+              <button
+                className="hamburger"
+                onClick={() => setOpen(true)}
+                aria-label="Open menu"
+              >
+                <svg
+                  className="menu-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 640"
+                >
                   <path fill="currentColor" d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z"/>
                 </svg>
-              )}
-            </button>
+              </button>
+            )}
           </div>
         </div>
       </header>
+
+      {/* ── Floating close button — outside navbar, always above drawer ── */}
+      {open && (
+        <button
+          className="hamburger active floating-close"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+        >
+          <svg
+            className="menu-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+          >
+            <path fill="currentColor" d="M55.1 73.5C45.7 64.1 45.7 48.9 55.1 39.5C64.5 30.1 79.7 30.1 89.1 39.5L192 142.4L294.9 39.5C304.3 30.1 319.5 30.1 328.9 39.5C338.3 48.9 338.3 64.1 328.9 73.5L226 176.4L328.9 279.3C338.3 288.7 338.3 303.9 328.9 313.3C319.5 322.7 304.3 322.7 294.9 313.3L192 210.4L89.1 313.3C79.7 322.7 64.5 322.7 55.1 313.3C45.7 303.9 45.7 288.7 55.1 279.3L158 176.4L55.1 73.5z"/>
+          </svg>
+        </button>
+      )}
 
       {/* ── Mobile Drawer ── */}
       <div className={`mobile-drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
@@ -226,11 +243,6 @@ const Navbar = () => {
             <span className="drawer-brand-name">Geetham</span>
             <span className="drawer-brand-tag">South Indian Cuisine</span>
           </div>
-          {/* <button className="drawer-close" onClick={() => setOpen(false)} aria-label="Close menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" fill="currentColor">
-              <path d="M55.1 73.5C45.7 64.1 45.7 48.9 55.1 39.5C64.5 30.1 79.7 30.1 89.1 39.5L192 142.4L294.9 39.5C304.3 30.1 319.5 30.1 328.9 39.5C338.3 48.9 338.3 64.1 328.9 73.5L226 176.4L328.9 279.3C338.3 288.7 338.3 303.9 328.9 313.3C319.5 322.7 304.3 322.7 294.9 313.3L192 210.4L89.1 313.3C79.7 322.7 64.5 322.7 55.1 313.3C45.7 303.9 45.7 288.7 55.1 279.3L158 176.4L55.1 73.5z"/>
-            </svg>
-          </button> */}
         </div>
 
         {/* Nav items */}

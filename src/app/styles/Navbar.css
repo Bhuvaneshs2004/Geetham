@@ -31,7 +31,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 888;
   padding: 18px 0;
   transform: translateY(0);
   transition:
@@ -207,7 +207,7 @@
 
 /* ── Hamburger ────────────────────────────────── */
 .hamburger {
-  display: none;
+  display: none;                   /* hidden by default; shown via media query */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -216,7 +216,6 @@
   border: none;
   cursor: pointer;
   padding: 6px;
-  z-index: 1001;        /* always above drawer (999) and backdrop (998) */
   border-radius: 9999px;
   transition: background 0.2s ease;
 }
@@ -229,10 +228,36 @@
   transition: transform 0.3s ease, color 0.25s ease;
 }
 
-/* When drawer is open, hamburger floats above backdrop — icon turns white */
+/* Active state: icon turns white (used by floating-close) */
 .hamburger.active .menu-icon {
   transform: rotate(90deg);
   color: #ffffff;
+}
+
+/* ── Floating close button ────────────────────── */
+/*
+   Rendered outside <header> so it is never capped by the navbar's
+   stacking context (z-index 888). Sits above the drawer (999) and
+   the backdrop (998) at all times.
+*/
+.floating-close {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  z-index: 1100;                   /* above drawer (999) + backdrop (998) */
+  display: flex !important;        /* always visible when rendered */
+  /* background: rgba(255, 255, 255, 0.10); */
+  /* border: 1px solid rgba(255, 255, 255, 0.15); */
+  border-radius: 9999px;
+  padding: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.floating-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.08);
 }
 
 /* ═══════════════════════════════════════════════
@@ -618,6 +643,7 @@
 @media (max-width: 900px) {
   .navbar-inner { padding: 0 24px; }
 
+  /* Show hamburger on mobile */
   .hamburger { display: flex; }
 
   .logo-icon  { height: 48px; }
