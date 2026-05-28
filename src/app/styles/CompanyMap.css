@@ -1,13 +1,11 @@
 /**
  * CompanyMap.css — Geetham Veg Brand Theme
  * ─────────────────────────────────────────────────────────────────────────────
- * Brand palette extracted from the Geetham Veg logo:
- *   Orange  #F47B20  — primary brand, wordmark
- *   Green   #6DBE45  — leaf accent, "Veg" script
- *   Charcoal #1A1A1A — logo background, dark UI
+ * Brand palette:
+ *   Orange  #F47B20  — primary brand
+ *   Green   #6DBE45  — leaf accent
+ *   Charcoal #1A1A1A — dark UI
  *   Cream   #FFF8F0  — warm light surface
- *
- * BEM naming: .company-map__[element]--[modifier]
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -29,13 +27,8 @@
   min-width: 220px;
 }
 
-.company-map__popup .leaflet-popup-tip-container {
-  margin-top: -1px;
-}
-
-.company-map__popup .leaflet-popup-tip {
-  box-shadow: none;
-}
+.company-map__popup .leaflet-popup-tip-container { margin-top: -1px; }
+.company-map__popup .leaflet-popup-tip { box-shadow: none; }
 
 .company-map__popup .leaflet-popup-close-button {
   top: 8px;
@@ -46,17 +39,15 @@
   z-index: 10;
   transition: color 0.15s;
 }
-.company-map__popup .leaflet-popup-close-button:hover {
-  color: #fff !important;
-}
+.company-map__popup .leaflet-popup-close-button:hover { color: #fff !important; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   1. DESIGN TOKENS — Geetham Veg palette
+   1. DESIGN TOKENS
    ═══════════════════════════════════════════════════════════════════════════ */
 .company-map {
-    width: 80%;
-    height: 80vh;
-  /* ── Brand colours ── */
+  width: 80%;
+  height: 80vh;
+
   --gv-orange:          #F47B20;
   --gv-orange-deep:     #D4610A;
   --gv-orange-light:    #FDE8D4;
@@ -66,41 +57,32 @@
   --gv-charcoal:        #1A1A1A;
   --gv-charcoal-mid:    #2C2C2C;
 
-  /* ── Semantic aliases (light theme) ── */
   --cm-accent:          var(--gv-orange);
   --cm-accent-hover:    var(--gv-orange-deep);
   --cm-accent2:         var(--gv-green);
 
-  --cm-bg:              #FFFAF6;        /* warm off-white, nod to cream */
-  --cm-surface:         #FFF3E8;        /* soft orange tint */
-  --cm-border:          #F0D9C4;        /* warm tan border */
+  --cm-bg:              #FFFAF6;
+  --cm-surface:         #FFF3E8;
+  --cm-border:          #F0D9C4;
   --cm-text-primary:    #1A1A1A;
-  --cm-text-secondary:  #6B4C2A;        /* warm brown */
+  --cm-text-secondary:  #6B4C2A;
   --cm-text-muted:      #B08060;
 
-  /* ── Status ── */
   --cm-success:         var(--gv-green);
   --cm-error:           #DC2626;
   --cm-warning:         var(--gv-orange);
 
-  /* ── Shadows — warm-tinted ── */
   --cm-shadow-sm:       0 1px 3px rgba(244,123,32,.12), 0 1px 2px rgba(0,0,0,.06);
   --cm-shadow-md:       0 4px 16px rgba(244,123,32,.14), 0 2px 6px rgba(0,0,0,.07);
   --cm-shadow-lg:       0 12px 48px rgba(244,123,32,.18), 0 4px 16px rgba(0,0,0,.10);
 
-  /* ── Geometry ── */
   --cm-radius-sm:       8px;
   --cm-radius-md:       14px;
   --cm-radius-lg:       20px;
-
-  /* ── Motion ── */
   --cm-transition:      0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* ── Typography ── */
   --cm-font:            'Nunito', 'DM Sans', 'Segoe UI', system-ui, sans-serif;
 }
 
-/* ── Dark theme: charcoal surfaces, orange accents glow ── */
 .company-map--dark {
   --cm-bg:              #1A1A1A;
   --cm-surface:         #252525;
@@ -136,7 +118,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  /* Warm gradient echoing the logo background */
   background: linear-gradient(90deg, #1A1A1A 0%, #2C2218 100%);
   border-bottom: 2px solid var(--gv-orange);
   gap: 12px;
@@ -148,18 +129,15 @@
   gap: 12px;
 }
 
-/* Logo badge: shows the Geetham leaf SVG on charcoal */
 .company-map__logo-badge {
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  /* background: linear-gradient(145deg, #F47B20, #D4610A); */
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   flex-shrink: 0;
-  /* box-shadow: 0 4px 14px rgba(244,123,32,0.55); */
   border: 1.5px solid rgba(255,255,255,0.12);
 }
 
@@ -237,7 +215,7 @@
               transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Search ── */
+/* Search */
 .company-map__search-wrap {
   position: relative;
   padding: 13px 14px 10px;
@@ -268,15 +246,88 @@
               background var(--cm-transition), color var(--cm-transition);
   box-sizing: border-box;
 }
-
 .company-map__search::placeholder { color: var(--cm-text-muted); }
-
 .company-map__search:focus {
   border-color: var(--gv-orange);
   box-shadow: 0 0 0 3px rgba(244,123,32,0.18);
 }
 
-/* ── Branch list ── */
+/* ── Route error banner ── */
+.company-map__route-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 8px 12px 0;
+  padding: 8px 10px;
+  border-radius: var(--cm-radius-sm);
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: var(--cm-error);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ── Route active strip ── */
+.company-map__route-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 12px 0;
+  padding: 8px 12px;
+  border-radius: var(--cm-radius-sm);
+  background: linear-gradient(90deg, rgba(244,123,32,0.12), rgba(244,123,32,0.06));
+  border: 1px solid rgba(244,123,32,0.3);
+  animation: cm-fadein 0.25s ease;
+}
+
+@keyframes cm-fadein {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.company-map__route-strip-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.company-map__route-strip-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gv-orange-deep);
+}
+
+.company-map__route-strip-stats {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cm-text-primary);
+}
+
+.company-map__route-strip-clear {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(244,123,32,0.4);
+  background: transparent;
+  color: var(--gv-orange-deep);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--cm-transition), color var(--cm-transition);
+  flex-shrink: 0;
+}
+.company-map__route-strip-clear:hover {
+  background: var(--gv-orange);
+  color: #fff;
+  border-color: var(--gv-orange);
+}
+
+/* Branch list */
 .company-map__branch-list {
   list-style: none;
   margin: 0;
@@ -304,13 +355,16 @@
   outline: none;
 }
 
-.company-map__branch-item:hover {
-  background: var(--gv-orange-light);
-}
-
+.company-map__branch-item:hover { background: var(--gv-orange-light); }
 .company-map__branch-item--active {
   background: rgba(244,123,32,0.09);
   border-left-color: var(--gv-orange);
+}
+
+/* Highlighted when a route is drawn to this branch */
+.company-map__branch-item--routed {
+  background: rgba(244,123,32,0.06);
+  border-left-color: var(--gv-orange-deep);
 }
 
 .company-map__branch-dot {
@@ -346,6 +400,36 @@
   transition: color var(--cm-transition);
 }
 
+/* Right-side area of branch item: distance + chevron/badge */
+.company-map__branch-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.company-map__branch-dist {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--gv-orange-deep);
+  background: rgba(244,123,32,0.10);
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.company-map__branch-routed-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--gv-orange-deep);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
 .company-map__branch-chevron {
   flex-shrink: 0;
   color: var(--cm-text-muted);
@@ -369,7 +453,7 @@
   color: var(--cm-text-muted);
 }
 
-/* ── Geolocation panel ── */
+/* Geolocation panel */
 .company-map__geo-panel {
   padding: 10px 16px;
   border-top: 1px solid var(--cm-border);
@@ -403,7 +487,7 @@
 }
 .company-map__retry-btn:hover { background: var(--cm-error); color: #fff; }
 
-/* Spinner */
+/* Spinner (shared) */
 .company-map__spinner {
   display: inline-block;
   width: 12px;
@@ -417,7 +501,7 @@
 
 @keyframes cm-spin { to { transform: rotate(360deg); } }
 
-/* ── Legend ── */
+/* Legend */
 .company-map__legend {
   padding: 10px 16px 14px;
   border-top: 1px solid var(--cm-border);
@@ -443,7 +527,6 @@
   flex-shrink: 0;
 }
 
-/* Green pulsing dot for user */
 .company-map__legend-user {
   width: 10px;
   height: 10px;
@@ -451,6 +534,16 @@
   background: var(--gv-green);
   flex-shrink: 0;
   box-shadow: 0 0 0 3px rgba(109,190,69,0.25);
+}
+
+/* Route legend item — orange dashed line */
+.company-map__legend-route {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gv-orange);
+  flex-shrink: 0;
+  position: relative;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -468,6 +561,77 @@
   height: 100%;
   position: absolute;
   inset: 0;
+}
+
+/* ── Floating "Return to location" button ── */
+.company-map__locate-btn {
+  position: absolute;
+  /* Stack above zoom controls; zoom sits at top-left by default */
+  bottom: 80px;
+  right: 12px;
+  z-index: 1000;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1.5px solid rgba(244,123,32,0.35);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gv-orange-deep);
+  transition: background var(--cm-transition), color var(--cm-transition),
+              border-color var(--cm-transition), transform 0.15s,
+              box-shadow var(--cm-transition);
+}
+
+.company-map__locate-btn:hover {
+  background: var(--gv-orange);
+  color: #fff;
+  border-color: var(--gv-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244,123,32,0.45);
+}
+
+.company-map--dark .company-map__locate-btn {
+  background: #252525;
+  color: #F4A96A;
+  border-color: #3A2E22;
+}
+
+.company-map--dark .company-map__locate-btn:hover {
+  background: var(--gv-orange);
+  color: #fff;
+  border-color: var(--gv-orange);
+}
+
+/* ── Route loading overlay ── */
+.company-map__route-loading {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255,250,246,0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(244,123,32,0.3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gv-orange-deep);
+  box-shadow: 0 4px 14px rgba(244,123,32,0.2);
+  animation: cm-fadein 0.2s ease;
+}
+
+.company-map--dark .company-map__route-loading {
+  background: rgba(37,37,37,0.92);
+  color: #F4A96A;
+  border-color: rgba(244,123,32,0.3);
 }
 
 /* Floating theme badge */
@@ -508,7 +672,7 @@
   transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ── User location dot (green to match the leaf) ── */
+/* User location dot */
 .company-map__user-dot {
   position: relative;
   width: 24px;
@@ -561,7 +725,6 @@
   overflow: hidden;
 }
 
-/* Leaf-shaped decorative blob in popup header */
 .company-map__popup-header::before {
   content: "";
   position: absolute;
@@ -645,8 +808,83 @@
 
 .company-map__popup-link svg { flex-shrink: 0; color: #F4A96A; }
 
+/* ── "Get Directions" button inside popup ── */
+.company-map__directions-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 9px 14px;
+  margin-top: 4px;
+  border-radius: var(--cm-radius-sm);
+  border: 1.5px solid var(--gv-orange);
+  background: var(--gv-orange);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--cm-font);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.company-map__directions-btn:hover:not(:disabled) {
+  background: var(--gv-orange-deep);
+  border-color: var(--gv-orange-deep);
+  transform: translateY(-1px);
+}
+
+.company-map__directions-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── Route info inside popup ── */
+.company-map__route-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: var(--cm-radius-sm);
+  background: rgba(244,123,32,0.07);
+  border: 1px solid rgba(244,123,32,0.2);
+}
+
+.company-map__route-stat {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gv-orange-deep);
+}
+
+.company-map__route-stat svg { flex-shrink: 0; }
+
+.company-map__route-clear-btn {
+  margin-top: 2px;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(244,123,32,0.35);
+  background: transparent;
+  color: var(--gv-orange-deep);
+  cursor: pointer;
+  font-family: var(--cm-font);
+  font-weight: 600;
+  transition: background var(--cm-transition), color var(--cm-transition);
+}
+.company-map__route-clear-btn:hover {
+  background: var(--gv-orange);
+  color: #fff;
+  border-color: var(--gv-orange);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
-   9. LEAFLET ATTRIBUTION
+   9. LEAFLET CONTROLS
    ═══════════════════════════════════════════════════════════════════════════ */
 .company-map__leaflet .leaflet-control-attribution {
   font-size: 0.6rem;
@@ -665,9 +903,6 @@
   color: var(--gv-orange);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   10. LEAFLET ZOOM CONTROLS
-   ═══════════════════════════════════════════════════════════════════════════ */
 .company-map__leaflet .leaflet-control-zoom {
   border-radius: 10px;
   overflow: hidden;
@@ -703,7 +938,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   11. DARK MODE POPUP OVERRIDE
+   10. DARK MODE POPUP OVERRIDES
    ═══════════════════════════════════════════════════════════════════════════ */
 .company-map--dark .company-map__popup .leaflet-popup-content-wrapper {
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
@@ -724,12 +959,15 @@
   color: #7A5C3A;
 }
 
-.company-map--dark .company-map__popup-link {
-  color: var(--gv-orange);
+.company-map--dark .company-map__popup-link { color: var(--gv-orange); }
+
+.company-map--dark .company-map__route-info {
+  background: rgba(244,123,32,0.09);
+  border-color: rgba(244,123,32,0.25);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   12. RESPONSIVE BREAKPOINTS
+   11. RESPONSIVE
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .company-map__sidebar { width: 245px; }
@@ -737,9 +975,7 @@
 
 @media (max-width: 640px) {
   .company-map { border-radius: var(--cm-radius-md); }
-
   .company-map__sidebar-toggle { display: flex; }
-
   .company-map__body { flex-direction: column-reverse; }
 
   .company-map__sidebar {
@@ -787,12 +1023,16 @@
     background: rgba(244,123,32,0.09);
   }
 
+  .company-map__branch-right { flex-direction: row; }
   .company-map__branch-chevron { display: none; }
-
   .company-map__map-wrap { min-height: 280px; }
-
   .company-map__geo-panel,
   .company-map__legend { display: none; }
+
+  .company-map__locate-btn {
+    bottom: 60px;
+    right: 10px;
+  }
 }
 
 @media (max-width: 380px) {
@@ -802,7 +1042,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   13. ACCESSIBILITY — reduce motion
+   12. ACCESSIBILITY — reduce motion
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .company-map__svg-icon,
@@ -812,7 +1052,11 @@
   }
   * { transition-duration: 0.01ms !important; }
 }
-.Map_outer{
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. PAGE WRAPPER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.Map_outer {
   display: flex;
   justify-content: center;
   align-items: center;

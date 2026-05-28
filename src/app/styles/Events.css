@@ -44,12 +44,12 @@
 .events-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  /* background: linear-gradient(
     160deg,
     rgba(255, 248, 240, 0.88) 0%,
     rgba(255, 238, 210, 0.82) 50%,
     rgba(42, 28, 20, 0.10) 100%
-  );
+  ); */
   z-index: 0;
 }
 
@@ -214,13 +214,13 @@
   position: relative;
 }
 
-.booking-section::before {
+/* .booking-section::before {
   content: '';
   position: absolute;
   inset: 0;
   background: rgba(255, 248, 240, 0.80);
   pointer-events: none;
-}
+} */
 
 .booking-inner {
   position: relative;

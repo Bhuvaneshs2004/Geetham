@@ -16,13 +16,13 @@
 }
 
 /* Ivory wash over wallpaper */
-.menu-section::before {
+/* .menu-section::before {
   content: '';
   position: absolute;
   inset: 0;
   background: rgba(255, 250, 242, 0.78);
   pointer-events: none;
-}
+} */
 
 .menu-inner {
   position: relative;

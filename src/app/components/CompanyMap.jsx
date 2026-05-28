@@ -1,7 +1,6 @@
 'use client';
 
-import React, {useState, useEffect, useRef, useCallback, useMemo,} from "react";
-
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -9,6 +8,7 @@ import {
   Popup,
   useMap,
   Circle,
+  Polyline,
 } from "react-leaflet";
 import L from "leaflet";
 
@@ -26,17 +26,11 @@ L.Icon.Default.mergeOptions({
 // ─────────────────────────────────────────────────────────────────────────────
 
 import "../styles/CompanyMap.css";
-import logo from '../../../public/assets/Gethamlogo.png'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CONFIGURATION – Edit these to customise the map for your company
+// CONFIGURATION
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Map tile providers.
- * Light → CARTO Voyager (warm, earthy tones — suits the Geetham Veg palette)
- * Dark  → CARTO Dark Matter (charcoal, matches brand background)
- */
 const TILE_LAYERS = {
   light: {
     url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
@@ -52,18 +46,6 @@ const TILE_LAYERS = {
   },
 };
 
-/**
- * BRANCH DATA – Replace with your real company locations.
- * Each entry supports:
- *   id        : unique string/number
- *   name      : display name shown in popup title
- *   address   : full street address
- *   phone     : optional phone number
- *   email     : optional email address
- *   hours     : optional opening hours string
- *   type      : "hq" | "branch" | "store"  (affects marker colour)
- *   lat / lng : WGS-84 coordinates
- */
 export const DEFAULT_BRANCHES = [
   {
     id: 1,
@@ -233,49 +215,85 @@ export const DEFAULT_BRANCHES = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CUSTOM SVG ICONS
+// HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Creates a Leaflet DivIcon from an inline SVG string.
- * Using DivIcon lets us apply CSS animations and avoid external image assets.
+ * Haversine formula — straight-line distance between two lat/lng points in km.
  */
+function haversineKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/**
+ * Fetch a walking/driving route from OSRM (free, no API key needed).
+ * Returns an array of [lat, lng] pairs that form the route polyline.
+ */
+async function fetchOsrmRoute(fromLat, fromLng, toLat, toLng) {
+  const url =
+    `https://router.project-osrm.org/route/v1/driving/` +
+    `${fromLng},${fromLat};${toLng},${toLat}` +
+    `?overview=full&geometries=geojson`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("OSRM fetch failed");
+  const data = await res.json();
+  if (data.code !== "Ok" || !data.routes?.length) throw new Error("No route found");
+
+  const coords = data.routes[0].geometry.coordinates; // [lng, lat] pairs
+  const distanceM = data.routes[0].distance;
+  const durationS = data.routes[0].duration;
+
+  return {
+    polyline: coords.map(([lng, lat]) => [lat, lng]),
+    distanceKm: (distanceM / 1000).toFixed(1),
+    durationMin: Math.ceil(durationS / 60),
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CUSTOM SVG ICONS
+// ─────────────────────────────────────────────────────────────────────────────
+
 const makeSvgIcon = (svgHtml, size = [36, 44], anchor = [18, 44]) =>
   L.divIcon({
     html: svgHtml,
-    className: "company-map__svg-icon", // CSS animation hook
+    className: "company-map__svg-icon",
     iconSize: size,
     iconAnchor: anchor,
     popupAnchor: [0, -44],
   });
 
-/** Geetham Veg brand colours per branch type */
 const BRANCH_COLORS = {
-  hq: "#D4610A",  // deep burnt orange — HQ authority
-  branch: "#F47B20",  // brand orange — main branches
-  store: "#6DBE45",  // leaf green — stores
+  hq: "#D4610A",
+  branch: "#F47B20",
+  store: "#6DBE45",
 };
 
-/** Pin SVG for company markers */
 const buildBranchIcon = (type = "branch") => {
   const color = BRANCH_COLORS[type] ?? BRANCH_COLORS.branch;
-  // Inner symbol differs by type
   const symbol =
     type === "hq"
       ? `<path d="M18 9l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" fill="white" opacity="0.9"/>`
       : type === "store"
-        ? `<rect x="12" y="12" width="12" height="10" rx="1" fill="white" opacity="0.9"/><rect x="15" y="18" width="6" height="4" fill="${color}"/>`
-        : `<circle cx="18" cy="16" r="5" fill="white" opacity="0.9"/>`;
+      ? `<rect x="12" y="12" width="12" height="10" rx="1" fill="white" opacity="0.9"/><rect x="15" y="18" width="6" height="4" fill="${color}"/>`
+      : `<circle cx="18" cy="16" r="5" fill="white" opacity="0.9"/>`;
 
   return makeSvgIcon(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 44" width="36" height="44">
       <filter id="shadow-${type}">
         <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.4)"/>
       </filter>
-      <!-- Pin body -->
       <path d="M18 2C10.268 2 4 8.268 4 16c0 10 14 26 14 26s14-16 14-26C32 8.268 25.732 2 18 2z"
         fill="${color}" filter="url(#shadow-${type})"/>
-      <!-- Inner highlight -->
       <path d="M18 4C11.373 4 6 9.373 6 16c0 9 12 23 12 23s12-14 12-23C30 9.373 24.627 4 18 4z"
         fill="${color}" opacity="0.7"/>
       ${symbol}
@@ -285,7 +303,6 @@ const buildBranchIcon = (type = "branch") => {
   );
 };
 
-/** Pulsing dot for the user's current position */
 const USER_ICON = makeSvgIcon(
   `<div class="company-map__user-dot">
     <div class="company-map__user-pulse"></div>
@@ -297,22 +314,17 @@ const USER_ICON = makeSvgIcon(
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SUB-COMPONENT: MapBoundsController
-// Imperatively adjusts the map viewport whenever the list of coordinates
-// changes (e.g. after geolocation resolves).
 // ─────────────────────────────────────────────────────────────────────────────
 function MapBoundsController({ points }) {
   const map = useMap();
 
   useEffect(() => {
     if (!points || points.length === 0) return;
-
     if (points.length === 1) {
       map.setView(points[0], 14, { animate: true });
       return;
     }
-
     const bounds = L.latLngBounds(points);
-    // fitBounds with generous padding so markers aren't clipped by UI chrome
     map.fitBounds(bounds, { padding: [60, 60], animate: true, maxZoom: 15 });
   }, [map, points]);
 
@@ -320,14 +332,87 @@ function MapBoundsController({ points }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SUB-COMPONENT: BranchMarker
-// Renders a single branch marker with an animated popup card.
+// SUB-COMPONENT: LocateMeButton
+// Floating button inside the map that flies to the user's current location.
 // ─────────────────────────────────────────────────────────────────────────────
-function BranchMarker({ branch, isHighlighted }) {
+function LocateMeButton({ userLocation }) {
+  const map = useMap();
+
+  if (!userLocation) return null;
+
+  const handleClick = () => {
+    map.flyTo([userLocation.lat, userLocation.lng], 16, {
+      animate: true,
+      duration: 1.2,
+    });
+  };
+
+  return (
+    <div
+      className="company-map__locate-btn"
+      onClick={handleClick}
+      title="Return to my location"
+      role="button"
+      aria-label="Return to my location"
+    >
+      {/* Crosshair / locate icon */}
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        width="18"
+        height="18"
+      >
+        <circle cx="12" cy="12" r="3" />
+        <line x1="12" y1="2"  x2="12" y2="6"  />
+        <line x1="12" y1="18" x2="12" y2="22" />
+        <line x1="2"  y1="12" x2="6"  y2="12" />
+        <line x1="18" y1="12" x2="22" y2="12" />
+      </svg>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SUB-COMPONENT: RouteLayer
+// Draws the OSRM polyline on the map when routeData is available.
+// ─────────────────────────────────────────────────────────────────────────────
+function RouteLayer({ routeData }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!routeData?.polyline?.length) return;
+    const bounds = L.latLngBounds(routeData.polyline);
+    map.fitBounds(bounds, { padding: [60, 80], animate: true });
+  }, [map, routeData]);
+
+  if (!routeData?.polyline?.length) return null;
+
+  return (
+    <Polyline
+      positions={routeData.polyline}
+      pathOptions={{
+        color: "#F47B20",
+        weight: 5,
+        opacity: 0.85,
+        lineCap: "round",
+        lineJoin: "round",
+        dashArray: null,
+      }}
+    />
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SUB-COMPONENT: BranchMarker
+// ─────────────────────────────────────────────────────────────────────────────
+function BranchMarker({ branch, isHighlighted, onRouteRequest, routeInfo, isRouting }) {
   const icon = useMemo(() => buildBranchIcon(branch.type), [branch.type]);
   const markerRef = useRef(null);
 
-  // Open popup when this branch is highlighted via the sidebar list
   useEffect(() => {
     if (isHighlighted && markerRef.current) {
       markerRef.current.openPopup();
@@ -338,20 +423,21 @@ function BranchMarker({ branch, isHighlighted }) {
     branch.type === "hq"
       ? "Headquarters"
       : branch.type === "store"
-        ? "Store"
-        : "Branch";
+      ? "Store"
+      : "Branch";
+
+  const isThisBranchRouted = routeInfo?.branchId === branch.id;
 
   return (
     <Marker
       ref={markerRef}
       position={[branch.lat, branch.lng]}
       icon={icon}
-      // ARIA: announce branch name to screen readers
       title={branch.name}
     >
-      <Popup className="company-map__popup" maxWidth={280}>
+      <Popup className="company-map__popup" maxWidth={290}>
         <div className="company-map__popup-card">
-          {/* ── Header ── */}
+          {/* Header */}
           <div
             className="company-map__popup-header"
             style={{ "--branch-color": BRANCH_COLORS[branch.type] ?? BRANCH_COLORS.branch }}
@@ -360,7 +446,7 @@ function BranchMarker({ branch, isHighlighted }) {
             <h3 className="company-map__popup-name">{branch.name}</h3>
           </div>
 
-          {/* ── Body ── */}
+          {/* Body */}
           <div className="company-map__popup-body">
             <p className="company-map__popup-address">
               <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
@@ -370,10 +456,7 @@ function BranchMarker({ branch, isHighlighted }) {
             </p>
 
             {branch.phone && (
-              <a
-                href={`tel:${branch.phone}`}
-                className="company-map__popup-link"
-              >
+              <a href={`tel:${branch.phone}`} className="company-map__popup-link">
                 <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
                   <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.98 10.7a1.5 1.5 0 0 1-1.454-.355L5.353 7.163a1.5 1.5 0 0 1-.355-1.453l.468-1.804a.678.678 0 0 0-.122-.58L3.654 1.328z" />
                 </svg>
@@ -382,10 +465,7 @@ function BranchMarker({ branch, isHighlighted }) {
             )}
 
             {branch.email && (
-              <a
-                href={`mailto:${branch.email}`}
-                className="company-map__popup-link"
-              >
+              <a href={`mailto:${branch.email}`} className="company-map__popup-link">
                 <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
                   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114V5.383zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.731z" />
                 </svg>
@@ -402,6 +482,51 @@ function BranchMarker({ branch, isHighlighted }) {
                 {branch.hours}
               </p>
             )}
+
+            {/* ── Route info or Get Directions button ── */}
+            {isThisBranchRouted && routeInfo ? (
+              <div className="company-map__route-info">
+                <div className="company-map__route-stat">
+                  <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.5 4.5v4.793l3.146 3.147-.707.707-3.5-3.5A.5.5 0 0 1 7.5 9V4.5h1z"/>
+                  </svg>
+                  <span>{routeInfo.durationMin} min drive</span>
+                </div>
+                <div className="company-map__route-stat">
+                  <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+                    <path d="M1 0a1 1 0 0 0-1 1v14a1 1 0 0 0 2 0V1a1 1 0 0 0-1-1zm14.985 3.75L14.207 2l-5.5 5.5 5.5 5.5 1.778-1.75L11.707 7.5l4.278-3.75z"/>
+                  </svg>
+                  <span>{routeInfo.distanceKm} km away</span>
+                </div>
+                <button
+                  className="company-map__route-clear-btn"
+                  onClick={() => onRouteRequest(null)}
+                >
+                  Clear route
+                </button>
+              </div>
+            ) : (
+              <button
+                className="company-map__directions-btn"
+                onClick={() => onRouteRequest(branch)}
+                disabled={isRouting}
+              >
+                {isRouting ? (
+                  <>
+                    <span className="company-map__spinner" />
+                    Getting route…
+                  </>
+                ) : (
+                  <>
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+                      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                      <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    Get Directions
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </Popup>
@@ -412,17 +537,6 @@ function BranchMarker({ branch, isHighlighted }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN COMPONENT: CompanyMap
 // ─────────────────────────────────────────────────────────────────────────────
-
-/**
- * Props
- * ─────
- * branches      – Array of branch objects (defaults to DEFAULT_BRANCHES)
- * companyName   – String shown in the panel header
- * showSearch    – Boolean; enable/disable the search input (default true)
- * showThemeToggle – Boolean; show dark/light toggle (default true)
- * height        – CSS string for map height (default "560px")
- * defaultTheme  – "light" | "dark" (default "light")
- */
 export default function CompanyMap({
   branches = DEFAULT_BRANCHES,
   companyName = "Acme Corp",
@@ -433,16 +547,19 @@ export default function CompanyMap({
 }) {
   // ── State ──────────────────────────────────────────────────────────────────
   const [theme, setTheme] = useState(defaultTheme);
-  const [userLocation, setUserLocation] = useState(null);    // { lat, lng }
-  const [geoStatus, setGeoStatus] = useState("idle");        // idle | loading | success | error
+  const [userLocation, setUserLocation] = useState(null);
+  const [geoStatus, setGeoStatus] = useState("idle");
   const [geoError, setGeoError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [highlightedId, setHighlightedId] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // ── Derived values ─────────────────────────────────────────────────────────
+  // Route state
+  const [routeData, setRouteData] = useState(null);   // { polyline, distanceKm, durationMin, branchId }
+  const [isRouting, setIsRouting] = useState(false);
+  const [routeError, setRouteError] = useState(null);
 
-  /** Branches filtered by the search input */
+  // ── Filtered branches ──────────────────────────────────────────────────────
   const filteredBranches = useMemo(() => {
     if (!searchQuery.trim()) return branches;
     const q = searchQuery.toLowerCase();
@@ -454,11 +571,17 @@ export default function CompanyMap({
     );
   }, [branches, searchQuery]);
 
-  /**
-   * The set of lat/lng points the map should display.
-   * We ALWAYS start from the filtered company locations and optionally
-   * append the user's position so bounds-fitting includes everyone.
-   */
+  // Auto-highlight & zoom to single search result
+  useEffect(() => {
+    if (filteredBranches.length === 1) {
+      setHighlightedId(filteredBranches[0].id);
+    } else if (filteredBranches.length > 1) {
+      // Reset highlight when query is broad so map re-fits all results
+      setHighlightedId(null);
+    }
+  }, [filteredBranches]);
+
+  // Map points for bounds fitting
   const mapPoints = useMemo(() => {
     const pts = filteredBranches.map((b) => [b.lat, b.lng]);
     if (userLocation) pts.push([userLocation.lat, userLocation.lng]);
@@ -466,24 +589,20 @@ export default function CompanyMap({
   }, [filteredBranches, userLocation]);
 
   // ── Geolocation ────────────────────────────────────────────────────────────
-
   const requestGeolocation = useCallback(() => {
     if (!navigator.geolocation) {
       setGeoStatus("error");
       setGeoError("Geolocation is not supported by your browser.");
       return;
     }
-
     setGeoStatus("loading");
     setGeoError(null);
-
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         setGeoStatus("success");
       },
       (err) => {
-        // GeolocationPositionError codes: 1=PERMISSION_DENIED, 2=UNAVAILABLE, 3=TIMEOUT
         const messages = {
           1: "Location access was denied. Enable it in browser settings.",
           2: "Location unavailable. Please try again.",
@@ -496,25 +615,75 @@ export default function CompanyMap({
     );
   }, []);
 
-  // Auto-request geolocation on first mount
-  useEffect(() => {
-    requestGeolocation();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { requestGeolocation(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Tile layer ─────────────────────────────────────────────────────────────
+  // ── Route handler ──────────────────────────────────────────────────────────
+  /**
+   * Called when the user clicks "Get Directions" inside a popup.
+   * Pass null to clear the current route.
+   */
+  const handleRouteRequest = useCallback(
+    async (branch) => {
+      // Clear route
+      if (!branch) {
+        setRouteData(null);
+        setRouteError(null);
+        return;
+      }
+
+      if (!userLocation) {
+        setRouteError("Enable location access to get directions.");
+        return;
+      }
+
+      setIsRouting(true);
+      setRouteError(null);
+      setRouteData(null);
+
+      try {
+        const result = await fetchOsrmRoute(
+          userLocation.lat,
+          userLocation.lng,
+          branch.lat,
+          branch.lng
+        );
+        setRouteData({ ...result, branchId: branch.id });
+      } catch {
+        // Fallback: show straight-line distance if OSRM fails
+        const km = haversineKm(userLocation.lat, userLocation.lng, branch.lat, branch.lng).toFixed(1);
+        setRouteData({
+          polyline: [
+            [userLocation.lat, userLocation.lng],
+            [branch.lat, branch.lng],
+          ],
+          distanceKm: km,
+          durationMin: Math.ceil((km / 30) * 60), // estimate at 30 km/h
+          branchId: branch.id,
+        });
+        setRouteError("Exact route unavailable — showing straight-line distance.");
+      } finally {
+        setIsRouting(false);
+      }
+    },
+    [userLocation]
+  );
+
+  // ── Tile layer & legend ────────────────────────────────────────────────────
   const currentTile = TILE_LAYERS[theme] ?? TILE_LAYERS.light;
 
-  // ── Legend data (derived from branches prop) ────────────────────────────────
   const legendTypes = useMemo(() => {
     const seen = new Set();
     return branches
-      .filter((b) => {
-        if (seen.has(b.type)) return false;
-        seen.add(b.type);
-        return true;
-      })
+      .filter((b) => { if (seen.has(b.type)) return false; seen.add(b.type); return true; })
       .map((b) => ({ type: b.type, color: BRANCH_COLORS[b.type] ?? "#333" }));
   }, [branches]);
+
+  // ── Straight-line distance label for sidebar items ─────────────────────────
+  const distanceLabel = (branch) => {
+    if (!userLocation) return null;
+    const km = haversineKm(userLocation.lat, userLocation.lng, branch.lat, branch.lng);
+    return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+  };
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
@@ -523,18 +692,17 @@ export default function CompanyMap({
         className={`company-map company-map--${theme}`}
         aria-label={`${companyName} locations map`}
       >
-        {/* ── Panel header ── */}
+        {/* Header */}
         <div className="company-map__header">
           <div className="company-map__header-left">
             <div className="company-map__logo-badge" aria-hidden="true">
-              {/* Leaf icon — echoes the Geetham Veg logo leaf motif */}
-<img
-  src="/assets/Gethamlogo.png"
-  alt="Getham Logo"
-  width="40"
-  height="30"
-  className="MapLogo"
-/>
+              <img
+                src="/assets/Gethamlogo.png"
+                alt="Getham Logo"
+                width="40"
+                height="30"
+                className="MapLogo"
+              />
             </div>
             <div>
               <h2 className="company-map__title">{companyName}</h2>
@@ -557,31 +725,26 @@ export default function CompanyMap({
                 {theme === "light" ? "🌙" : "☀️"}
               </button>
             )}
-
-            {/* Mobile sidebar toggle */}
             <button
               className="company-map__sidebar-toggle"
               onClick={() => setSidebarOpen((o) => !o)}
               aria-label={sidebarOpen ? "Hide branch list" : "Show branch list"}
             >
               <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
-                {sidebarOpen
-                  ? <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  : <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />}
+                <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* ── Main layout: sidebar + map ── */}
+        {/* Body */}
         <div className="company-map__body">
 
-          {/* ── Sidebar ── */}
+          {/* Sidebar */}
           <aside
             className={`company-map__sidebar ${sidebarOpen ? "company-map__sidebar--open" : ""}`}
             aria-label="Branch list"
           >
-
             {/* Search */}
             {showSearch && (
               <div className="company-map__search-wrap">
@@ -599,39 +762,83 @@ export default function CompanyMap({
               </div>
             )}
 
+            {/* Route error banner */}
+            {routeError && (
+              <div className="company-map__route-error-banner">
+                <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+                {routeError}
+              </div>
+            )}
+
+            {/* Route summary strip */}
+            {routeData && (
+              <div className="company-map__route-strip">
+                <div className="company-map__route-strip-inner">
+                  <span className="company-map__route-strip-label">Route active</span>
+                  <span className="company-map__route-strip-stats">
+                    {routeData.distanceKm} km · ~{routeData.durationMin} min
+                  </span>
+                </div>
+                <button
+                  className="company-map__route-strip-clear"
+                  onClick={() => handleRouteRequest(null)}
+                  aria-label="Clear route"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
             {/* Branch list */}
             <ul className="company-map__branch-list" role="list">
               {filteredBranches.length === 0 && (
                 <li className="company-map__no-results">No locations match.</li>
               )}
-              {filteredBranches.map((b) => (
-                <li
-                  key={b.id}
-                  className={`company-map__branch-item ${highlightedId === b.id ? "company-map__branch-item--active" : ""
-                    }`}
-                  onClick={() => setHighlightedId(b.id === highlightedId ? null : b.id)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && setHighlightedId(b.id)}
-                  aria-pressed={highlightedId === b.id}
-                >
-                  <span
-                    className="company-map__branch-dot"
-                    style={{ background: BRANCH_COLORS[b.type] ?? "#333" }}
-                    aria-hidden="true"
-                  />
-                  <div className="company-map__branch-info">
-                    <span className="company-map__branch-name">{b.name}</span>
-                    <span className="company-map__branch-address">{b.address}</span>
-                  </div>
-                  <svg className="company-map__branch-chevron" viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
-                    <path d="M6 3l5 5-5 5" />
-                  </svg>
-                </li>
-              ))}
+              {filteredBranches.map((b) => {
+                const dist = distanceLabel(b);
+                const isRouted = routeData?.branchId === b.id;
+                return (
+                  <li
+                    key={b.id}
+                    className={`company-map__branch-item ${
+                      highlightedId === b.id ? "company-map__branch-item--active" : ""
+                    } ${isRouted ? "company-map__branch-item--routed" : ""}`}
+                    onClick={() => setHighlightedId(b.id === highlightedId ? null : b.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && setHighlightedId(b.id)}
+                    aria-pressed={highlightedId === b.id}
+                  >
+                    <span
+                      className="company-map__branch-dot"
+                      style={{ background: BRANCH_COLORS[b.type] ?? "#333" }}
+                      aria-hidden="true"
+                    />
+                    <div className="company-map__branch-info">
+                      <span className="company-map__branch-name">{b.name}</span>
+                      <span className="company-map__branch-address">{b.address}</span>
+                    </div>
+                    <div className="company-map__branch-right">
+                      {dist && (
+                        <span className="company-map__branch-dist">{dist}</span>
+                      )}
+                      {isRouted ? (
+                        <span className="company-map__branch-routed-badge">Routed</span>
+                      ) : (
+                        <svg className="company-map__branch-chevron" viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
+                          <path d="M6 3l5 5-5 5" />
+                        </svg>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
 
-            {/* Geolocation status */}
+            {/* Geolocation panel */}
             <div className="company-map__geo-panel">
               {geoStatus === "loading" && (
                 <p className="company-map__geo-msg company-map__geo-msg--loading">
@@ -647,10 +854,7 @@ export default function CompanyMap({
               {geoStatus === "error" && (
                 <div className="company-map__geo-msg company-map__geo-msg--error">
                   <p>{geoError}</p>
-                  <button
-                    className="company-map__retry-btn"
-                    onClick={requestGeolocation}
-                  >
+                  <button className="company-map__retry-btn" onClick={requestGeolocation}>
                     Try again
                   </button>
                 </div>
@@ -661,17 +865,9 @@ export default function CompanyMap({
             <div className="company-map__legend" aria-label="Map legend">
               {legendTypes.map(({ type, color }) => (
                 <div key={type} className="company-map__legend-item">
-                  <span
-                    className="company-map__legend-dot"
-                    style={{ background: color }}
-                    aria-hidden="true"
-                  />
+                  <span className="company-map__legend-dot" style={{ background: color }} aria-hidden="true" />
                   <span>
-                    {type === "hq"
-                      ? "Headquarters"
-                      : type === "store"
-                        ? "Store"
-                        : "Branch"}
+                    {type === "hq" ? "Headquarters" : type === "store" ? "Store" : "Branch"}
                   </span>
                 </div>
               ))}
@@ -679,10 +875,14 @@ export default function CompanyMap({
                 <span className="company-map__legend-user" aria-hidden="true" />
                 <span>Your location</span>
               </div>
+              <div className="company-map__legend-item">
+                <span className="company-map__legend-route" aria-hidden="true" />
+                <span>Active route</span>
+              </div>
             </div>
           </aside>
 
-          {/* ── Map ── */}
+          {/* Map */}
           <div
             className="company-map__map-wrap"
             style={{ "--map-height": height }}
@@ -690,46 +890,48 @@ export default function CompanyMap({
             aria-label="Interactive map"
           >
             <MapContainer
-              // Default centre is the centroid of the first two branches; will
-              // be overridden immediately by MapBoundsController.
-              center={[
-                branches[0]?.lat ?? 37.5,
-                branches[0]?.lng ?? -122.0,
-              ]}
+              center={[branches[0]?.lat ?? 13.05, branches[0]?.lng ?? 80.21]}
               zoom={10}
               scrollWheelZoom={true}
               className="company-map__leaflet"
-              // Accessibility: keyboard navigation
               keyboard={true}
             >
-              {/* Tile layer (switches on theme change) */}
               <TileLayer
-                key={theme}                        // force remount on theme change
+                key={theme}
                 url={currentTile.url}
                 attribution={currentTile.attribution}
                 maxZoom={19}
               />
 
-              {/* Auto-fit bounds whenever points change */}
+              {/* Fit bounds to current filtered set */}
               <MapBoundsController points={mapPoints} />
 
-              {/* Company branch markers */}
+              {/* Route polyline */}
+              <RouteLayer routeData={routeData} />
+
+              {/* "Return to my location" floating button */}
+              <LocateMeButton userLocation={userLocation} />
+
+              {/* Branch markers */}
               {filteredBranches.map((branch) => (
                 <BranchMarker
                   key={branch.id}
                   branch={branch}
                   isHighlighted={highlightedId === branch.id}
+                  onRouteRequest={handleRouteRequest}
+                  routeInfo={routeData}
+                  isRouting={isRouting}
                 />
               ))}
 
-              {/* User location marker + accuracy circle */}
+              {/* User location marker */}
               {userLocation && (
                 <>
                   <Marker
                     position={[userLocation.lat, userLocation.lng]}
                     icon={USER_ICON}
                     title="Your current location"
-                    zIndexOffset={1000}           // render above branch markers
+                    zIndexOffset={1000}
                   >
                     <Popup className="company-map__popup">
                       <div className="company-map__popup-card">
@@ -743,8 +945,6 @@ export default function CompanyMap({
                       </div>
                     </Popup>
                   </Marker>
-
-                  {/* Semi-transparent accuracy ring */}
                   <Circle
                     center={[userLocation.lat, userLocation.lng]}
                     radius={400}
@@ -760,10 +960,18 @@ export default function CompanyMap({
               )}
             </MapContainer>
 
-            {/* Floating attribution overlay (CARTO requires this) */}
+            {/* Theme badge */}
             <div className="company-map__theme-badge" aria-hidden="true">
               {currentTile.label} map
             </div>
+
+            {/* Route loading overlay */}
+            {isRouting && (
+              <div className="company-map__route-loading">
+                <span className="company-map__spinner" />
+                Calculating route…
+              </div>
+            )}
           </div>
         </div>
       </section>

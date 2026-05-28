@@ -332,7 +332,7 @@ const Navbar = () => {
 
         {/* CTA */}
         <div className="drawer-cta">
-          <a href="tel:7397222111" className="drawer-book-btn">
+          <a href="/reservation" className="drawer-book-btn">
             <span className="drawer-book-icon">✦</span>
             Reserve a Table
           </a>
