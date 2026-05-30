@@ -40,7 +40,7 @@ const Hero = () => {
         </h1>
 
         <p className="hero-subtitle">
-          A symphony of spices, tradition, and love — <br />
+          A symphony of spices, tradition, and love <br />
           crafted to perfection with generations-old recipes
         </p>
 

@@ -49,17 +49,17 @@ const navLinks = [
       </svg>
     ),
   },
-  {
-    label: 'Specials',
-    href: '#food-gallery',
-    type: 'scroll',
-    badge: 'New',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="18" height="18" fill="currentColor">
-        <path d="M320 64l63.3 128.3L528 212.5l-104 101.3L449.4 464 320 396.3 190.6 464l33.4-150.2L120 212.5l144.7-20.2L320 64z"/>
-      </svg>
-    ),
-  },
+  // {
+  //   label: 'Specials',
+  //   href: '#food-gallery',
+  //   type: 'scroll',
+  //   badge: 'New',
+  //   icon: (
+  //     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="18" height="18" fill="currentColor">
+  //       <path d="M320 64l63.3 128.3L528 212.5l-104 101.3L449.4 464 320 396.3 190.6 464l33.4-150.2L120 212.5l144.7-20.2L320 64z"/>
+  //     </svg>
+  //   ),
+  // },
   {
     label: 'Events & Corporate',
     href: '/events',
@@ -253,7 +253,7 @@ const Navbar = () => {
           })}
 
           <div className="drawer-divider" />
-          <span className="drawer-section-label">Offers</span>
+          {/* <span className="drawer-section-label">Offers</span> */}
 
           {navLinks.slice(4).map((link) => {
             const isRoute = link.type === 'route';
@@ -308,7 +308,7 @@ const Navbar = () => {
             <span className="drawer-book-icon">✦</span>
             Reserve a Table
           </Link>
-          <p className="drawer-tagline">Crafted with love since 1988</p>
+          {/* <p className="drawer-tagline">Crafted with love since 1988</p> */}
         </div>
       </div>
 
