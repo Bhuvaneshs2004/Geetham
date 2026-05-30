@@ -3,6 +3,9 @@ import './styles/global.css';
 
 export const metadata = {
     title: 'Geetham | Authentic South Indian Cuisine',
+    icons:{
+        icon:'../assets/Gethamlogo.png'
+    },
     description: 'A symphony of spices, tradition, and love.',
 };
 

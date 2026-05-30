@@ -18,10 +18,10 @@ const About = () => {
           <div className="about-img-accent">
             <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80" alt="Dosas" className='Dosaimage'/>
           </div>
-          <div className="about-badge">
+          {/* <div className="about-badge">
             <span className="badge-num">15+</span>
             <span className="badge-text">Years of<br />Excellence</span>
-          </div>
+          </div> */}
           <div className="about-pattern" />
         </div>
 
@@ -54,14 +54,14 @@ const About = () => {
             ))}
           </div>
 
-          <div className="about-cta">
+          {/* <div className="about-cta1">
             <button className="btn-primary" onClick={() => scrollToSection('#menu')}>
               View Our Menu
             </button>
             <button className="btn-outline" onClick={() => scrollToSection('#contact')}>
               Get Directions
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

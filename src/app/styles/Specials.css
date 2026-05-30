@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════
+   SPECIALS — 3-D Fan Gallery
+═══════════════════════════════════════ */
+
 .specials {
   padding: 120px 0 0;
   background: var(--dark-2);
@@ -5,18 +9,19 @@
 }
 
 .specials-inner {
-  max-width: 1300px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 40px;
 }
 
+/* ── Header ── */
 .specials-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 56px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease;
@@ -24,138 +29,218 @@
 .specials-header.reveal { opacity: 1; transform: none; }
 .specials-header .section-tag { justify-content: center; }
 
-.specials-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.section-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+
+.specials-sub {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 228, 0.38);
 }
 
-.special-card {
-  background: var(--dark-3);
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.special-card.reveal { opacity: 1; transform: none; }
-.special-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
-
-.special-img {
+/* ── Fan Stage ── */
+.fan-stage {
+  width: 100%;
+  height: 340px;
   position: relative;
-  aspect-ratio: 16/9;
+  perspective: 1100px;
+  perspective-origin: 50% 60%;
   overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+.fan-stage:active { cursor: grabbing; }
+
+.fan-track {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transform-style: preserve-3d;
 }
 
-.special-img img {
+/* ── Individual card ── */
+.fan-card {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 200px; height: 280px;
+  margin-top: -140px;
+  margin-left: -100px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  transition:
+    transform      0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity        0.55s ease,
+    box-shadow     0.3s ease;
+}
+.fan-card.active {
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px var(--gold);
+}
+.fan-card img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-  display: block;
+  object-fit: cover; display: block;
+  pointer-events: none;
+  transition: transform 0.4s ease;
+  -webkit-user-drag: none;
 }
-.special-card:hover .special-img img { transform: scale(1.05); }
+.fan-card:hover img { transform: scale(1.06); }
 
-.special-overlay {
+.fan-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 60%);
+  background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
 }
 
-.special-offer-badge {
+.fan-info {
   position: absolute;
-  top: 20px;
-  right: 0;
-  background: var(--gold);
-  padding: 8px 20px 8px 16px;
-  clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 8% 100%, 0% 50%);
+  bottom: 0; left: 0; right: 0;
+  padding: 14px 14px 16px;
 }
 
-.special-offer-badge span {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--dark);
-}
-
-.special-label {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
+.fan-label {
+  display: block;
   font-family: var(--font-ui);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
-  background: rgba(0,0,0,0.6);
-  padding: 4px 10px;
-  backdrop-filter: blur(4px);
+  margin-bottom: 5px;
 }
 
-.special-body {
-  padding: 28px;
-}
-
-.special-title {
+.fan-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--cream);
-  margin-bottom: 10px;
+  line-height: 1.3;
+  margin-bottom: 7px;
 }
 
-.special-desc {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 300;
-  color: rgba(240,236,228,0.6);
-  line-height: 1.7;
-  margin-bottom: 20px;
+.fan-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 2px;
 }
 
-.special-footer {
+/* ── Dots ── */
+.fan-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+
+.fan-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(240, 236, 228, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s;
+}
+.fan-dot.on {
+  background: var(--gold);
+  transform: scale(1.35);
+}
+
+/* ── Offer Panel ── */
+.offer-panel {
+  max-width: 620px;
+  margin: 28px auto 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+.offer-panel.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.op-inner {
+  background: var(--dark-3);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: 4px;
+  padding: 22px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.special-code {
+.op-dish {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.op-desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(240, 236, 228, 0.5);
+  line-height: 1.65;
+  max-width: 320px;
+}
+
+.op-right {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
-.code-label {
+.op-code-lbl {
   font-family: var(--font-ui);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(240,236,228,0.4);
+  color: rgba(240, 236, 228, 0.35);
+  margin-bottom: 3px;
 }
 
-.code-value {
+.op-code {
   font-family: 'Courier New', monospace;
   font-size: 1rem;
   font-weight: 700;
   color: var(--gold);
   letter-spacing: 0.1em;
-  background: rgba(212,175,55,0.1);
-  padding: 3px 10px;
-  border: 1px dashed rgba(212,175,55,0.3);
+  background: rgba(212, 175, 55, 0.08);
+  padding: 4px 12px;
+  border: 1px dashed rgba(212, 175, 55, 0.3);
 }
 
-.special-expires {
+.op-expires {
   font-family: var(--font-ui);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--primary);
   font-weight: 500;
 }
 
-/* Marquee */
+/* ── Marquee ── */
 .offer-marquee-wrap {
   overflow: hidden;
-  margin-top: 80px;
+  margin-top: 60px;
   background: var(--primary);
   padding: 12px 0;
 }
@@ -171,17 +256,22 @@
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   padding: 0 8px;
 }
 
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to   { transform: translateX(-50%); }
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .specials { padding: 80px 0 0; }
+  .specials       { padding: 80px 0 0; }
   .specials-inner { padding: 0 20px; }
-  .specials-grid { grid-template-columns: 1fr; }
+  .fan-stage      { height: 260px; }
+  .fan-card       { width: 150px; height: 210px; margin-top: -105px; margin-left: -75px; }
+  .section-title  { font-size: 2.2rem; }
+  .op-inner       { flex-direction: column; align-items: flex-start; }
+  .op-right       { align-items: flex-start; }
 }

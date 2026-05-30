@@ -5,9 +5,9 @@ import '../styles/ClientTestimonials.css';
 const TESTIMONIALS = [
   {
     id: 1,
-    name: 'Wanderboat Reviewer',
+    name: 'Ramakrishnan S',
     role: 'Verified Diner · Google',
-    initials: 'WR',
+    initials: 'RS',
     stars: 5,
     source: 'Google',
     quote:
@@ -15,22 +15,22 @@ const TESTIMONIALS = [
   },
   {
     id: 2,
-    name: 'TripAdvisor Guest',
-    role: 'Verified Diner · TripAdvisor',
-    initials: 'TG',
+    name: 'Bhuvanesh S',
+    role: 'Verified Diner · Google',
+    initials: 'BS',
     stars: 5,
-    source: 'TripAdvisor',
-    featured: true,
+    source: 'Google',
+    // featured: true,
     quote:
       'If you want a wholesome South Indian lunch, you must not miss this place. Even during peak summer with heavy rush, they served cool welcome drinks while we waited in queue. Thoughtful and delicious!',
   },
   {
     id: 3,
-    name: 'Airport Traveller',
-    role: 'Verified Diner · TripAdvisor',
-    initials: 'AT',
+    name: 'Syed Muksid',
+    role: 'Verified Diner · Google',
+    initials: 'SM',
     stars: 5,
-    source: 'TripAdvisor',
+    source: 'Google',
     quote:
       'Worth a visit for breakfast, lunch, or dinner near Chennai Airport. The Filter Coffee was so good we had to repeat it within 30 minutes! Mini Tiffin + Filter Coffee is the best combination.',
   },
@@ -46,19 +46,19 @@ const TESTIMONIALS = [
   },
   {
     id: 5,
-    name: 'Medavakkam Visitor',
-    role: 'Verified Diner · TripAdvisor',
-    initials: 'MV',
+    name: 'Joseph Vijay',
+    role: 'Verified Diner · Google',
+    initials: 'JV',
     stars: 5,
-    source: 'TripAdvisor',
+    source: 'Google',
     quote:
       'Visited the spacious new restaurant in Medavakkam for dinner. Huge dining area with comfortable seating. The seat management was very good — we were seated within minutes despite the crowd.',
   },
   {
     id: 6,
-    name: 'Chennai Food Lover',
+    name: 'Harish R',
     role: 'Verified Diner · Google',
-    initials: 'CF',
+    initials: 'HR',
     stars: 5,
     source: 'Google',
     quote:

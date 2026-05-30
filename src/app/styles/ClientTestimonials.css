@@ -66,7 +66,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(92, 74, 61, 0.18);
-  border-radius: 20px;
+  border-radius: 3px;
   /* Squircle */
   padding: 28px;
   display: flex;
@@ -137,7 +137,7 @@
   padding-left: 20px;
 }
 
-.test-quote::before {
+/* .test-quote::before {
   content: '"';
   position: absolute;
   left: 0;
@@ -147,7 +147,7 @@
   color: rgba(232, 163, 85, 0.45);
   line-height: 1;
   font-style: normal;
-}
+} */
 
 /* ── Divider ──────────────────────────────────── */
 .test-divider {
@@ -166,7 +166,8 @@
   width: 44px;
   height: 44px;
   /* Temple Archway avatar shape */
-  border-radius: 999px 999px 12px 12px;
+  /* border-radius: 999px 999px 12px 12px; */
+  border-radius: 50%;
   background: linear-gradient(135deg, #D14136, #b8352c);
   display: flex;
   align-items: center;

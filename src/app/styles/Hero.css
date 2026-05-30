@@ -3,6 +3,7 @@
    bg-geetham wallpaper · Temple Archway video mask
    Tamarind typography · Kumkum accent
    ═══════════════════════════════════════════════ */
+@import url('https://fonts.cdnfonts.com/css/mefista');
 
 .hero {
   position: relative;
@@ -143,7 +144,7 @@
   display: block;
   font-size: clamp(3.2rem, 8.5vw, 7rem);
   font-weight: 900;
-  font-style: italic;
+  font-style: 'Mefista',san serif;
   color: #D14136;
   /* Kumkum Red */
   line-height: 1;
@@ -166,7 +167,7 @@
 
 /* ── Subtitle ───────────────────────────────────── */
 .hero-subtitle {
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  /* font-family: 'simple Food', 'Georgia', serif; */
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-weight: 300;
   color: #5C4A3D;
@@ -402,5 +403,192 @@
   .btn-primary,
   .btn-outline {
     justify-content: center;
+  }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Common styles */
+.hero-floating {
+  position: absolute;
+  z-index: 1;
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-floating img {
+  width: 220px;
+  height: auto;
+}
+
+/* Left Image */
+.hero-floating-left {
+  left: 5%;
+  top: 25%;
+}
+
+/* Right Image */
+.hero-floating-right {
+  right: 5%;
+  top: 20%;
+  animation-delay: 2s;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* ==============================
+   Floating Food Images
+   ============================== */
+
+.hero-floating {
+  position: absolute;
+  z-index: 1;
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-floating img {
+  width: 220px;
+  height: auto;
+}
+
+/* Left Image (Dosa) */
+.hero-floating-left {
+  left: 5%;
+  top: 25%;
+}
+
+.hero-floating-left img {
+  transform: rotate(-8deg);
+}
+
+/* Right Image (Idly) */
+.hero-floating-right {
+  right: 5%;
+  bottom: 10%;
+  animation-delay: 2s;
+}
+
+.hero-floating-right img {
+  transform: rotate(8deg);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+
+  .hero {
+    min-height: auto;
+    padding: 100px 20px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Remove absolute positioning */
+  .hero-floating {
+    position: static;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Dosa Above Content */
+  .hero-floating-left {
+    order: 1;
+    margin-bottom: 20px;
+  }
+
+  /* Hero Content */
+  .hero-content {
+    order: 2;
+  }
+
+  /* Idly Below Content */
+  .hero-floating-right {
+    order: 3;
+    margin-top: 20px;
+  }
+
+  .hero-floating img {
+    width: 180px;
+  }
+}
+
+.idly_Image{
+  width: 320px !important;
+}
+
+/* Desktop Layout */
+@media (min-width: 1024px) {
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .hero-floating {
+    position: absolute;
+    z-index: 1;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-floating img {
+    width: 240px;
+    height: auto;
+  }
+
+  /* Dosa */
+  .hero-floating-left {
+    left: 5%;
+    top: 20%;
+  }
+
+  /* Idly */
+  .hero-floating-right {
+    right: 3%;
+    top: 60%;
+    bottom: 0%;
+    animation-delay: 2s;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
   }
 }

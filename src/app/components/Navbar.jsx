@@ -80,7 +80,6 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  /* ── Navbar scroll behavior ── */
   useEffect(() => {
     const onScroll = () => {
       if (open) return;
@@ -108,13 +107,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [lastScrollY, open, pathname]);
 
-  /* ── Lock body scroll ── */
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  /* ── Scroll navigation ── */
   const handleScrollNav = (e, href) => {
     e.preventDefault();
     setOpen(false);
@@ -128,10 +125,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ── Navbar ── */}
-      <header
-        className={`navbar ${scrolled ? 'scrolled' : ''} ${showNavbar ? 'navbar-show' : 'navbar-hide'}`}
-      >
+      <header className={`navbar ${scrolled ? 'scrolled' : ''} ${showNavbar ? 'navbar-show' : 'navbar-hide'}`}>
         <div className="navbar-inner">
 
           {/* Logo */}
@@ -164,8 +158,8 @@ const Navbar = () => {
               }
               const scrollActive = activeSection === link.href.replace('#', '');
               return (
-                <a
-                  key={link.href}
+                
+                <a  key={link.href}
                   href={link.href}
                   className={`nav-link ${scrollActive ? 'active' : ''}`}
                   onClick={(e) => handleScrollNav(e, link.href)}
@@ -176,7 +170,7 @@ const Navbar = () => {
             })}
           </nav>
 
-          {/* Right — phones + hamburger (open trigger only) */}
+          {/* Right */}
           <div className="navbar-right">
             <div className="nav-phones">
               <a href="tel:7397222111" className="nav-phone">
@@ -185,7 +179,7 @@ const Navbar = () => {
                 </svg>
                 <span>73972 22111</span>
               </a>
-              <a href="tel:7397623777" className="nav-phone nav-phone-whatsapp">
+              <a href="https://wa.me/917397623777" className="nav-phone nav-phone-whatsapp" target="_blank" rel="noopener noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="16" height="16" fill="green">
                   <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/>
                 </svg>
@@ -193,18 +187,9 @@ const Navbar = () => {
               </a>
             </div>
 
-            {/* Hamburger — only shown when drawer is CLOSED */}
             {!open && (
-              <button
-                className="hamburger"
-                onClick={() => setOpen(true)}
-                aria-label="Open menu"
-              >
-                <svg
-                  className="menu-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 640 640"
-                >
+              <button className="hamburger" onClick={() => setOpen(true)} aria-label="Open menu">
+                <svg className="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                   <path fill="currentColor" d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z"/>
                 </svg>
               </button>
@@ -213,31 +198,20 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* ── Floating close button — outside navbar, always above drawer ── */}
+      {/* Floating close button */}
       {open && (
-        <button
-          className="hamburger active floating-close"
-          onClick={() => setOpen(false)}
-          aria-label="Close menu"
-        >
-          <svg
-            className="menu-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-          >
+        <button className="hamburger active floating-close" onClick={() => setOpen(false)} aria-label="Close menu">
+          <svg className="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
             <path fill="currentColor" d="M55.1 73.5C45.7 64.1 45.7 48.9 55.1 39.5C64.5 30.1 79.7 30.1 89.1 39.5L192 142.4L294.9 39.5C304.3 30.1 319.5 30.1 328.9 39.5C338.3 48.9 338.3 64.1 328.9 73.5L226 176.4L328.9 279.3C338.3 288.7 338.3 303.9 328.9 313.3C319.5 322.7 304.3 322.7 294.9 313.3L192 210.4L89.1 313.3C79.7 322.7 64.5 322.7 55.1 313.3C45.7 303.9 45.7 288.7 55.1 279.3L158 176.4L55.1 73.5z"/>
           </svg>
         </button>
       )}
 
-      {/* ── Mobile Drawer ── */}
+      {/* Mobile Drawer */}
       <div className={`mobile-drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
-
-        {/* Decorative glow orbs */}
         <div className="drawer-orb drawer-orb-top" />
         <div className="drawer-orb drawer-orb-bottom" />
 
-        {/* Header */}
         <div className="drawer-header">
           <div className="drawer-brand">
             <span className="drawer-brand-name">Geetham</span>
@@ -245,7 +219,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Nav items */}
         <nav className="drawer-nav">
           <span className="drawer-section-label">Navigate</span>
 
@@ -316,7 +289,6 @@ const Navbar = () => {
           })}
         </nav>
 
-        {/* Phone numbers */}
         <div className="drawer-phones">
           <a href="tel:7397222111" className="drawer-phone">
             <span className="drawer-phone-dot" style={{ background: '#E8A355' }} />
@@ -330,12 +302,12 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* CTA */}
+        {/* ✅ Fixed: <a href> → <Link href> */}
         <div className="drawer-cta">
-          <a href="/reservation" className="drawer-book-btn">
+          <Link href="/reservation" className="drawer-book-btn" onClick={() => setOpen(false)}>
             <span className="drawer-book-icon">✦</span>
             Reserve a Table
-          </a>
+          </Link>
           <p className="drawer-tagline">Crafted with love since 1988</p>
         </div>
       </div>

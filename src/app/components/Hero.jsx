@@ -22,8 +22,15 @@ const Hero = () => {
 
   return (
     <section id="home" className="hero" ref={heroRef}>
-      <div className="hero-deco hero-deco-tl" />
-      <div className="hero-deco hero-deco-br" />
+  {/* Left Floating Image */}
+  <div className="hero-floating hero-floating-left">
+    <img src="../assets/dosa.png" alt="Dosa" />
+  </div>
+
+  {/* Right Floating Image */}
+  <div className="hero-floating hero-floating-right">
+    <img src="../assets/idly.png" className="idly_Image" alt="Biryani" />
+  </div>
 
       <div className={`hero-content ${loaded ? 'animate-in' : ''}`}>
         <h1 className="hero-title">
@@ -54,7 +61,7 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className="hero-stats">
+        {/* <div className="hero-stats">
           <div className="hero-stat">
             <span className="stat-num">15+</span>
             <span className="stat-label">Years of Excellence</span>
@@ -69,17 +76,17 @@ const Hero = () => {
             <span className="stat-num">4.9★</span>
             <span className="stat-label">Customer Rating</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div className="hero-float hero-float-1">
+      {/* <div className="hero-float hero-float-1">
         <span className="float-emoji">🍛</span>
         <div>
           <strong>Biryani Special</strong>
           <small>Chef's Signature</small>
         </div>
-      </div>
-      <div className="hero-float hero-float-2">
+      </div> */}
+      {/* <div className="hero-float hero-float-2">
         <span className="float-emoji">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
             <path d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z"/>
@@ -89,7 +96,7 @@ const Hero = () => {
           <strong>Top Rated</strong>
           <small>Since 2010</small>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

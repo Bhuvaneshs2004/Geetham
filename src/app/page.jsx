@@ -18,6 +18,7 @@ const CompanyMap = dynamic(
 import Testimonials from './components/ClientTestimonials';
 import Marquee from './components/LogoMarquee';
 import Footer from './components/Footer';
+import AboutSection from './components/AboutSection';
 
 export default function HomePage() {
     const [introComplete, setIntroComplete] = useState(false);
@@ -43,6 +44,7 @@ export default function HomePage() {
                 <Navbar />
                 <Hero />
                 <FoodMarquee />
+                <AboutSection/>
                 <Speacials/>
                 <Testimonials />
                 {/* <CompanyMap companyName='Geetham' height='560px' /> */}

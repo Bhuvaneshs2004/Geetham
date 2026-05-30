@@ -165,7 +165,7 @@
 }
 
 /* ─── CTA Buttons ─── */
-.about-cta {
+.about-cta1 {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -259,7 +259,7 @@
   }
 
   /* Buttons stack on very small screens */
-  .about-cta {
+  .about-cta1 {
     flex-direction: column;
   }
   .btn-primary,
